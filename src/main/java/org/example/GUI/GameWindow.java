@@ -10,22 +10,17 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.example.Data.Date;
 import org.example.GUI.components.RectangleWithPiece;
+import org.example.Logic.MainApplication;
 import org.example.Logic.Pawn;
 
 import java.util.ArrayList;
 
 public class GameWindow extends Application {
-    private static Date date;
-    private static int size=10;
-
-
-
     private static Stage stage = new Stage();
-    private static BorderPane root = new BorderPane();
          //usunac/zmienic/nadawac na biezaco
         static ArrayList<Rectangle> rectangles=new ArrayList<>();
 
-        private static void setup(){
+        private static void setup(BorderPane root){
              //zeby mozna bylo pozniej cos dodac innego jeszcze np z boku
             root.setBackground(new Background(new BackgroundFill(Color.BLANCHEDALMOND, null, null)));
             root.setPadding(new Insets(25)); //marginesy
@@ -35,23 +30,13 @@ public class GameWindow extends Application {
         }
 
         public static void display() {
-            setup();
-
-            //w logice
-            for(int i = 0; i < size; i++) {
-                for(int j = 0; j< size; j++){
-                    if((j<2) && (rectangle.getFill()==Color.GREY) ){
-                        board.add(square.createPawn("#000000"), i+1,j+1);
-                    }
-                    else if ((j>7) && (rectangle.getFill()==Color.GREY))
-                    board.add(square.createPawn("#FFFFFF"), i+1,j+1);
-                }
-            }
+            MainApplication mainApplication = new MainApplication();
+            mainApplication.run();
         }
 
-        public static void refreshDisplay(RectangleWithPiece chessBoard[][]){
+        public static void refreshDisplay(RectangleWithPiece[][] chessBoard){
             GridPane board = new GridPane();//do samej planszy
-            root.setCenter(board);
+
 
             for(int i=0; i<chessBoard.length;i++){
                 for(int j=0;j<chessBoard[i].length;j++){
@@ -67,6 +52,9 @@ public class GameWindow extends Application {
                 }
             }
 
+            BorderPane root = new BorderPane();
+            setup(root);
+            root.setCenter(board);
             stage.setScene(new Scene(root));
             stage.sizeToScene(); //dopasowuje okno do zawartosci
             stage.show();

@@ -74,18 +74,15 @@ public class HelloApplication extends Application {
         stage.show();
     }
     public String getOption1(){
-        String name=option1.getText();
-        return name;
+        return option1.getText();
     }
 
     public String getOption2(){
-        String name=option2.getText();
-        return name;
+        return option2.getText();
     }
 
     public String getOption3(){
-        String name=option3.getText();
-        return name;
+        return option3.getText();
     }
 
 }
