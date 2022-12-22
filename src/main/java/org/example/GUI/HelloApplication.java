@@ -57,8 +57,14 @@ public class HelloApplication extends Application {
             }
         };
         option1.setOnAction(oknoprobaEH);
-        option2.setOnAction(oknoprobaEH); //
-        option3.setOnAction(oknoprobaEH); //
+        EventHandler<ActionEvent> inne = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("coming soon");
+            }
+        };
+        option2.setOnAction(inne); //
+        option3.setOnAction(inne); //
 
         //dodawanie elementow
         forbuttons.getChildren().add(option1);
