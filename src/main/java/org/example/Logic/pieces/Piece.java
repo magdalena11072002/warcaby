@@ -1,38 +1,26 @@
 package org.example.Logic.pieces;
 
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import org.example.Data.Date;
 import org.example.GUI.GameWindow;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+public abstract class Piece extends Button implements Movement{
 
-public abstract class Piece extends Button implements Movement {
-    protected String color; //dwie wartosci, podana przez hex : #FFFFFF-bialy , #000000-czarny. //todo sprawdzic czy mozna prze zklase color
-    protected Rectangle home;
+    protected String color; //dwie wartosci, podana przez hex : #FFFFFF-bialy , #000000-czarny. // todo sprawdzic czy mozna przez klase color
+    protected int myX;
+    protected int myY;
+    protected final Date coordinates = new Date(); //todo zastanowic sie czy tego mozna sie pozbyc
 
-    public Piece(String color, Rectangle home) {
+    public Piece(String color, int myY, int myX) {
         //konfiguracja przycisku
         super();
-        setStyle("-fx-background-color: "+color+";");
-        setMaxSize(20,20);
-        //todo wycentrowac
+        setStyle("-fx-background-color: " + color + ";");
+        setMaxSize(20, 20);
+        //todo wycentrowac + zmienic na kolka
         setupMouseEvents();
-
         this.color = color;
-        this.home = home;
-    }
-
-    public Rectangle getHome() {
-        return home;
-    }
-
-    public void setHome(Rectangle home) {
-        this.home = home;
+        this.myX = myX;
+        this.myY = myY;
     }
 
     public String getColor() {
@@ -43,17 +31,18 @@ public abstract class Piece extends Button implements Movement {
         this.color = color;
     }
 
-    private void setupMouseEvents(){
-        setOnMouseClicked(e->{
-            showAvailableMoves();
-        });
-
-        setOnMouseEntered(e->{
-            this.home.setFill(Color.YELLOW);
-        });
-
-        setOnMouseExited(e->{
-            this.home.setFill(Color.GREY);
+    private void setupMouseEvents() {
+        setOnMouseClicked(e -> {
+            if(GameWindow.getPlayer().equals(this.color)){
+                System.out.println("wybrałem przycisk");
+                System.out.println("myX =" + this.myX);
+                System.out.println("myY =" + this.myY);
+                coordinates.setSelectedX(this.myX);
+                coordinates.setSelectedY(this.myY);
+            }
+            else{
+                System.out.println("zly gracz");
+            }
         });
     }
 }

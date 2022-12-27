@@ -6,23 +6,14 @@ import org.example.Logic.pieces.Piece;
 
 
 
-public class Queen extends Piece {
-    public Queen(String color, Rectangle home) {
-        super(color, home);
-    }
-
-    @Override
-    public boolean move(Rectangle target) {
-        return false;
-    }
-
-    @Override
-    public void showAvailableMoves() {
-
-    }
-
-    @Override
-    public void select() {
-
-    }
-}
+//public class Queen extends Piece {
+//    @Override
+//    public boolean makeMove() {
+//        return false;
+//    }
+////    public Queen(String color,) {
+//
+// //   }
+//
+//
+//}

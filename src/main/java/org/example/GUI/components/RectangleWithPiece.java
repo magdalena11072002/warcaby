@@ -1,42 +1,47 @@
 package org.example.GUI.components;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+
+import org.example.GUI.GameWindow;
 import org.example.Logic.Pawn;
 import org.example.Logic.pieces.Piece;
+import javafx.scene.shape.Rectangle;
 
+public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozszerzenie, wydaje sie czytelniejsze
+    private Piece piece = null;
+    private final int myX;
+    private final int myY;
 
-public class RectangleWithPiece {
-    private Piece piece;
-    private Rectangle square; //todo myslalam o referencji do pol lewo i prawo, mozna pomyslec, wtedy ruszanie byloyb latwiejsze do implementacji ale mniej wydajne
-
-
-    public RectangleWithPiece(int v1, int v2) {
-       this.square = new Rectangle(v1,v2);
-       this.piece=null;
+    public RectangleWithPiece(int v1, int v2, int myY, int myX) {
+        super(v1, v2);
+        this.myX = myX;
+        this.myY = myY;
+        setupMouseEvents();
     }
 
     public Piece getPiece() {
         return piece;
     }
 
-    public void setPiece(Piece piece) { // todo do przemyslenia czy potrzebne
+    public void setPiece(Piece piece) {
         this.piece = piece;
-        piece.setHome(this.square);
     }
 
-    public Piece createPawn(String color){    //todo dla krolowej tez
-        this.piece = new Pawn(color,this.square);
+    public Piece createPawn(String color, int pieceY, int pieceX) {
+        this.piece = new Pawn(color, pieceY, pieceX);
         return piece;
     }
 
-
-
-    public Rectangle getSquare() {
-        return square;
-    }
-
-    public void setSquare(Rectangle square) {
-        this.square = square;
+    private void setupMouseEvents() {
+        setOnMouseClicked(e -> {
+            if (this.getPiece() != null) {
+                System.out.println("nie moge sie tu ruszyc, stoi pionek");
+                return;
+            }
+            System.out.println("wybrałem pole:");
+            System.out.println("docelowe X=" + myX);
+            System.out.println("docelowe Y=" + myY);
+            GameWindow.makeMove(myX, myY);
+        });
     }
 }
+

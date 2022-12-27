@@ -25,6 +25,7 @@ public class HelloApplication extends Application {
     private final Button option2 = new Button("Warcaby dwuliniowe");
     private final Button option3 = new Button("Warcaby hiszpańskie");
 
+
     @Override
     public void start(Stage stage) {
         //Layouty - zrobilam takie cos, ale zawsze mozna zmienic
@@ -47,24 +48,31 @@ public class HelloApplication extends Application {
         choice.setFont(Font.font("Bahnschrift", 20));
 
         //guziki i akcje
-        EventHandler<ActionEvent> oknoprobaEH = new EventHandler<>() {
+        EventHandler<ActionEvent> first = new EventHandler<>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-
-                GameWindow.display();
+                GameWindow.display(option1.getText());
                 stage.hide();
 
             }
         };
-        option1.setOnAction(oknoprobaEH);
-        EventHandler<ActionEvent> inne = new EventHandler<ActionEvent>() {
+        option1.setOnAction(first);
+        EventHandler<ActionEvent> second = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("coming soon");
+                GameWindow.display(option2.getText());
+                stage.hide();
             }
         };
-        option2.setOnAction(inne); //
-        option3.setOnAction(inne); //
+        option2.setOnAction(second);
+        EventHandler<ActionEvent> third=new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                GameWindow.display(option3.getText());
+                stage.hide();
+            }
+        };
+        option3.setOnAction(third);
 
         //dodawanie elementow
         forbuttons.getChildren().add(option1);
@@ -79,16 +87,6 @@ public class HelloApplication extends Application {
         //stage.sizeToScene(); //dopasowuje okno do zawartosci - moze sie przydac pozniej
         stage.show();
     }
-    public String getOption1(){
-        return option1.getText();
-    }
-
-    public String getOption2(){
-        return option2.getText();
-    }
-
-    public String getOption3(){
-        return option3.getText();
-    }
 
 }
+
