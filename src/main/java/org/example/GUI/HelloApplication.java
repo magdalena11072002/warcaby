@@ -15,6 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import org.example.Data.DwulinioweData;
+import org.example.Data.HiszpanskieData;
+import org.example.Data.PolskieData;
 
 public class HelloApplication extends Application {
     public static void main(String[] args) {
@@ -51,7 +54,7 @@ public class HelloApplication extends Application {
         EventHandler<ActionEvent> first = new EventHandler<>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                GameWindow.display(option1.getText());
+                GameWindow.display(new PolskieData());
                 stage.hide();
 
             }
@@ -60,7 +63,7 @@ public class HelloApplication extends Application {
         EventHandler<ActionEvent> second = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                GameWindow.display(option2.getText());
+                GameWindow.display(new DwulinioweData());
                 stage.hide();
             }
         };
@@ -68,7 +71,7 @@ public class HelloApplication extends Application {
         EventHandler<ActionEvent> third=new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                GameWindow.display(option3.getText());
+                GameWindow.display(new HiszpanskieData());
                 stage.hide();
             }
         };

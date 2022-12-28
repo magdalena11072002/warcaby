@@ -14,9 +14,12 @@ public abstract class Piece extends Button implements Movement{
     public Piece(String color, int myY, int myX) {
         //konfiguracja przycisku
         super();
-        setStyle("-fx-background-color: " + color + ";");
+        setStyle(
+                "-fx-background-radius: 48; " +
+                        "-fx-min-width: 48; " +
+                        "-fx-min-height: 48; " +
+                        "-fx-background-color: "+color+";");
         setMaxSize(20, 20);
-        //todo wycentrowac + zmienic na kolka
         setupMouseEvents();
         this.color = color;
         this.myX = myX;

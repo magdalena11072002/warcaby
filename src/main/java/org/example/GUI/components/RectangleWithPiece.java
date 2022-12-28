@@ -1,6 +1,7 @@
 package org.example.GUI.components;
 
 
+import javafx.scene.paint.Color;
 import org.example.GUI.GameWindow;
 import org.example.Logic.Pawn;
 import org.example.Logic.pieces.Piece;
@@ -11,12 +12,55 @@ public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozsz
     private final int myX;
     private final int myY;
 
-    public RectangleWithPiece(int v1, int v2, int myY, int myX) {
-        super(v1, v2);
+    private final int rectanglesize = 50;
+
+    public enum colortype{
+        LIGHT,
+        DARK
+    }
+    private colortype type;
+
+    public RectangleWithPiece(int myY, int myX) {//ZMIANA wszystkie kwadraty maja byc takie same wiec nie ma sensu podawac wielkosci, wystarczy sama lokalizacja
+        super();
+        setHeight(rectanglesize);
+        setWidth(rectanglesize);
         this.myX = myX;
         this.myY = myY;
         setupMouseEvents();
     }
+
+    /*
+    public RectangleWithPiece(int myY, int myX, colortype color){
+        super(50, 50);
+        this.myX = myX;
+        this.myY = myY;
+        setColortype(color);
+        setupMouseEvents();
+    }
+     */
+    public void setColortype(colortype color){
+        type = color;
+
+        if(type.equals(colortype.LIGHT)){
+            setFill(Color.LIGHTGRAY);
+        }
+        else if (type == colortype.DARK) {
+            setFill(Color.DARKGREY);
+        }
+    }
+    public colortype getColortype(){
+        return type;
+    }
+
+    public colortype otherColortype(colortype type){
+        if( type.equals(colortype.LIGHT)){
+            return colortype.DARK;
+        }
+        else {
+            return colortype.LIGHT;
+        }
+    }
+
 
     public Piece getPiece() {
         return piece;

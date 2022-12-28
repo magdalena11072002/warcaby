@@ -8,16 +8,17 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.example.Data.Date;
+import org.example.Data.TypeData;
 import org.example.GUI.components.RectangleWithPiece;
 
 
 public class GameWindow extends Application {
     private static RectangleWithPiece[][] chessBoard; // to raczej git
-    private static int size = 10;  // to ma byc programowalne, tzn z klasy Hello Application po wybranej opcji powinno to byc nastawione, moze cos display(int size) itd;
+    //private static int size = 10;  // to ma byc programowalne, tzn z klasy Hello Application po wybranej opcji powinno to byc nastawione, moze cos display(int size) itd;
     private static Date coordinates = new Date(); //mega wazne!!! warto sie zastanowic czy nie idzie tego usunac i przekazywac wartosci przez parametry
     private static String player = "#FFFFFF";
     private static Stage stage = new Stage();  // chyba tak ale nie wiem xd
-    private static String option1;
+    //private static String option1;
     //usunac/zmienic/nadawac na biezaco
 
 
@@ -30,16 +31,9 @@ public class GameWindow extends Application {
         stage.setTitle("Warcaby - rozgrywka");
     }
 
-    public static void display(String option) {
-        option1=option;
-        if(option1.equals("Warcaby polskie")){
-            size=10;
-        }
-        else {
-            size=8;
-        }
-
-        createBoard();
+    public static void display(TypeData type) {
+        Board board = new Board(type);
+        chessBoard = board.createBoard();
         refreshDisplay();
 
     }
@@ -50,9 +44,9 @@ public class GameWindow extends Application {
         for (int i = 0; i < chessBoard.length; i++) {
             for (int j = 0; j < chessBoard[i].length; j++) {
                 RectangleWithPiece square = chessBoard[i][j]; // klasa rozszerzona o bierke
-                if (((i + j) % 2) == 0) {
+                /*if (((i + j) % 2) == 0) {
                     square.setFill(Color.GREY);//byle jaki kolor dalam, byle rozne byly
-                }
+                }*/
                 board.add(square, i + 1, j + 1);
                 if (square.getPiece() != null) {
                     board.add(square.getPiece(), i + 1, j + 1);
@@ -106,44 +100,6 @@ public class GameWindow extends Application {
 
     public static RectangleWithPiece checkSquare(int x, int y) {
         return chessBoard[x][y];
-    }
-
-    private static void createBoard() {  // proste tworzenie raczej git, trzeba rozszerzyc o inne opcje gry
-        chessBoard = new RectangleWithPiece[size][size];
-        for (int i = 0; i < chessBoard.length; i++) {
-            for (int j = 0; j < chessBoard[i].length; j++) {
-                RectangleWithPiece square = new RectangleWithPiece(50, 50, j, i);
-                if (((i + j) % 2) == 0) {
-                    square.setFill(Color.GREY);
-                }
-                switch (option1) {
-                    case "Warcaby polskie":
-                        if ((j < 4) && ((i + j) % 2) == 0) {
-                            square.createPawn("#FFFFFF", j, i);
-                        } else if ((j > 5) && ((i + j) % 2) == 0) {
-                            square.createPawn("#000000", j, i);
-                        }
-                        break;
-                    case "Warcaby dwuliniowe":
-                        if ((j < 2) && ((i + j) % 2) == 0) {
-                            square.createPawn("#FFFFFF", j, i);
-                        } else if ((j > 5) && ((i + j) % 2) == 0) {
-                            square.createPawn("#000000", j, i);
-                        }
-                        break;
-                    case "Warcaby hiszpańskie":
-                        if ((j < 3) && ((i + j) % 2) == 0) {
-                            square.createPawn("#FFFFFF", j, i);
-                        } else if ((j > 4) && ((i + j) % 2) == 0) {
-                            square.createPawn("#000000", j, i);
-                        }
-                        break;
-                }
-
-                chessBoard[i][j] = square;
-
-            }
-        }
     }
 
 }
