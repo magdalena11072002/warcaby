@@ -11,6 +11,8 @@ import org.example.Data.Date;
 import org.example.Data.TypeData;
 import org.example.GUI.components.RectangleWithPiece;
 
+import java.util.Objects;
+
 
 public class GameWindow extends Application {
     private static RectangleWithPiece[][] chessBoard; // to raczej git
@@ -76,7 +78,15 @@ public class GameWindow extends Application {
                 RectangleWithPiece selectSquare = chessBoard[coordinates.getSelectedX()][coordinates.getSelectedY()];
                 RectangleWithPiece targetSquare = chessBoard[coordinates.getTargetX()][coordinates.getTargetY()];
 
-                targetSquare.setPiece(selectSquare.getPiece());
+                //jesli  na krawedziach
+                if((Objects.equals(player, "#000000") && coordinates.getTargetY() == 0) || (Objects.equals(player,"#FFFFFF") && coordinates.getTargetY() == chessBoard.length-1)){
+                    //zrob damke
+                    targetSquare.setPiece(targetSquare.createQueen(selectSquare.getPiece().getColor(), coordinates.getTargetY(), coordinates.getTargetX()));
+                }
+                else {
+                    //tworzy pionka jak wczesniej byl
+                    targetSquare.setPiece(selectSquare.getPiece());
+                }
                 selectSquare.setPiece(null);
 
                 if (player.equals("#FFFFFF")) player = "#000000";

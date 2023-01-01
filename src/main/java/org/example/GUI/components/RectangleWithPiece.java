@@ -4,6 +4,7 @@ package org.example.GUI.components;
 import javafx.scene.paint.Color;
 import org.example.GUI.GameWindow;
 import org.example.Logic.Pawn;
+import org.example.Logic.Queen;
 import org.example.Logic.pieces.Piece;
 import javafx.scene.shape.Rectangle;
 
@@ -52,14 +53,14 @@ public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozsz
         return type;
     }
 
-    public colortype otherColortype(colortype type){
+    /*public colortype otherColortype(colortype type){
         if( type.equals(colortype.LIGHT)){
             return colortype.DARK;
         }
         else {
             return colortype.LIGHT;
         }
-    }
+    }*/
 
 
     public Piece getPiece() {
@@ -72,6 +73,11 @@ public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozsz
 
     public Piece createPawn(String color, int pieceY, int pieceX) {
         this.piece = new Pawn(color, pieceY, pieceX);
+        return piece;
+    }
+
+    public Piece createQueen(String color, int pieceY, int pieceX){
+        this.piece = new Queen(color, pieceY, pieceX);
         return piece;
     }
 

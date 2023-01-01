@@ -15,11 +15,17 @@ public abstract class Piece extends Button implements Movement{
         //konfiguracja przycisku
         super();
         setStyle(
-                "-fx-background-radius: 48; " +
-                        "-fx-min-width: 48; " +
-                        "-fx-min-height: 48; " +
-                        "-fx-background-color: "+color+";");
-        setMaxSize(20, 20);
+                "-fx-background-radius: 20; "
+                        +"-fx-min-width: 40; "
+                        +"-fx-min-height: 40; "
+                        +"-fx-background-color: "+color+";"
+                        //+"-fx-translate-y: 5; "
+                        +"-fx-translate-x: 5;"
+                        +"-fx-border-color: " + color + ";"
+                        + "-fx-border-radius: 20;"
+                        +"-fx-border-width: 8 ;"
+        );
+
         setupMouseEvents();
         this.color = color;
         this.myX = myX;
