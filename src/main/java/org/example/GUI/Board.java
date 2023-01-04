@@ -29,7 +29,6 @@ public class Board {
             for (int j = 0; j < chessBoard[i].length; j++) {
                 RectangleWithPiece square = new RectangleWithPiece(j, i);
                 if (((i + j) % 2) == 0) {
-                    //square.setFill(Color.GREY);
                     square.setColortype(RectangleWithPiece.colortype.DARK);
                 }
                 else {

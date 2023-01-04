@@ -70,16 +70,34 @@ public class GameWindow extends Application {
     }
 
     public static void makeMove(int x, int y) {
-        coordinates.setTargetX(x);
-        coordinates.setTargetY(y);
+
         if (coordinates.getSelectedX() != -1 && coordinates.getSelectedY() != -1) { // w sumie mozna uzyc zaleznosci - wydaje sie byc rozsadniejsze aby odpowiedzialnosc za posuniecie lezala na figurze
-            if (chessBoard[coordinates.getSelectedX()][coordinates.getSelectedY()].getPiece().makeMove()) {// dodatkowo to jest tylko dla prostych posuniec bez bicia
+            coordinates.setTargetX(x);
+            coordinates.setTargetY(y);
 
-                RectangleWithPiece selectSquare = chessBoard[coordinates.getSelectedX()][coordinates.getSelectedY()];
-                RectangleWithPiece targetSquare = chessBoard[coordinates.getTargetX()][coordinates.getTargetY()];
+            RectangleWithPiece selectSquare;
+            RectangleWithPiece targetSquare;
 
+            if (chessBoard[coordinates.getSelectedX()][coordinates.getSelectedY()].getPiece().makeMove()) {
+
+                selectSquare = chessBoard[coordinates.getSelectedX()][coordinates.getSelectedY()];
+                targetSquare = chessBoard[coordinates.getTargetX()][coordinates.getTargetY()];
+
+                if(coordinates.getAmountOfMoves() == 0){ //jesli tylko skoczyl
+                    //zwalnia select
+                    coordinates.setSelectedX(-1);
+                    coordinates.setSelectedY(-1);
+                }
+                else{ //jesli zbil
+                    //przekazuje do select
+                    coordinates.setSelectedX(coordinates.getTargetX());
+                    coordinates.setSelectedY(coordinates.getTargetY());
+                }
+////
+                //if(ostatni ruch &&
                 //jesli  na krawedziach
                 if((Objects.equals(player, "#000000") && coordinates.getTargetY() == 0) || (Objects.equals(player,"#FFFFFF") && coordinates.getTargetY() == chessBoard.length-1)){
+                    System.out.println("tworzy damke");
                     //zrob damke
                     targetSquare.setPiece(targetSquare.createQueen(selectSquare.getPiece().getColor(), coordinates.getTargetY(), coordinates.getTargetX()));
                 }
@@ -89,16 +107,26 @@ public class GameWindow extends Application {
                 }
                 selectSquare.setPiece(null);
 
-                if (player.equals("#FFFFFF")) player = "#000000";
-                else player = "#FFFFFF";
+                coordinates.setTargetY(-1);
+                coordinates.setTargetX(-1);
+
+                System.out.println(targetSquare.getPiece().possibleBitesHere()+" bites");
+
+                if(targetSquare.getPiece().possibleBitesHere() == 0 || coordinates.getAmountOfMoves() == 0){ //jesli ostatnie bicie lub nie bicie
+
+                    if (player.equals("#FFFFFF")) player = "#000000";
+                    else player = "#FFFFFF";
+                    System.out.println("zmiana gracza");
+
+                    coordinates.setSelectedX(-1);
+                    coordinates.setSelectedY(-1);
+
+                    coordinates.endMove();
+                }
 
                 refreshDisplay();
 
-                System.out.println("ruszyłem");
-                coordinates.setSelectedX(-1);
-                coordinates.setSelectedY(-1);
-                coordinates.setTargetY(-1);
-                coordinates.setTargetX(-1);
+
             }
 
         }
@@ -110,6 +138,18 @@ public class GameWindow extends Application {
 
     public static RectangleWithPiece checkSquare(int x, int y) {
         return chessBoard[x][y];
+    }
+
+    public static int getBoardSize(){
+        return chessBoard.length-1;
+    }
+
+    public static Date getCoordinates(){
+        return coordinates;
+    }
+
+    public static void setCoordinates(Date coords){
+        coordinates=coords;
     }
 
 }

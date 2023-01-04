@@ -21,28 +21,90 @@ public class Queen extends Piece {
 
     @Override
     public boolean makeMove() {
-        return killPiece();
+        coordinates = GameWindow.getCoordinates();
+
+        int tx = coordinates.getTargetX();
+        int ty = coordinates.getTargetY();
+
+        RectangleWithPiece tokill = whatpiecestokill(tx,ty);
+        GameWindow.setCoordinates(coordinates);
+
+        if( tokill == null ){
+            return false;
+        } else if (tokill == GameWindow.checkSquare(myX, myY)) {
+            return longMove();
+        }
+        else {
+            return killPiece(tokill);
+        }
     }
 
-    private RectangleWithPiece Whatpiecestokill(){
+    @Override
+    public int possibleBitesHere() {
+
+        int targetX;
+        int targetY;
+
+        int amount = 0;
+
+        if(myX > 0){
+            targetX=0;
+            targetY = myY - myX; //myY + (-1)* myX;
+            while(targetY < 0 && targetY != myY){
+                targetX++;
+                targetY++;
+            }
+            amount += anybites(targetX,targetY,-1,-1);
+        }
+        if(myY>0) {
+            targetY = 0;
+            targetX = myX + myY;
+            while (targetX > GameWindow.getBoardSize() && targetX != myX) {
+                targetX--;
+                targetY++;
+            }
+            amount += anybites(targetX, targetY, 1, -1);
+        }
+        if(myX < GameWindow.getBoardSize()){
+            targetX = GameWindow.getBoardSize();
+            targetY = myY + (targetX - myX);
+            while(targetY > GameWindow.getBoardSize() && targetY != myY){
+                targetX --;
+                targetY --;
+            }
+            amount+= anybites(targetX, targetY, 1, 1);
+        }
+        if(myY < GameWindow.getBoardSize()){
+            targetY = GameWindow.getBoardSize();
+            targetX = myX - (targetY - myY);
+            while(targetX<0){
+                targetX++;
+                targetY--;
+            }
+            amount += anybites(targetX,targetY, -1,1);
+        }
+        return amount;
+    }
+
+    private RectangleWithPiece whatpiecestokill(int targetX, int targetY){
         RectangleWithPiece tokill = null;
         int amount = 0;
 
         int forX;
         int forY;
         //po lewej = -1; po prawej = 1; ten sam = 0
-        forX = Integer.compare(coordinates.getTargetX(), myX);
+        forX = Integer.compare(targetX, myX);
         //nizej,wyzej
-        forY = Integer.compare(coordinates.getTargetY(), myY);
+        forY = Integer.compare(targetY, myY);
 
 
         //jesli sa po przekatnej
-        if((forX *(coordinates.getTargetX()-myX)) == (forY *(coordinates.getTargetY()-myY))) {
-            //nie trzeba danego punktu bo warunek dla square
-            //dopoki sprawdzamy punkty inne niz nasz (kolejne do niego)
+        if((forX *(targetX-myX)) == (forY *(targetY-myY))) {
+
+
             int i = 1;
-            while ((myX != coordinates.getTargetX() - i*forX) && (myY != coordinates.getTargetY() - i*forY)) { //teoretycznie wystarczylby jeden warunek
-                RectangleWithPiece RwPToKill = GameWindow.checkSquare((coordinates.getTargetX()) - i*forX, (coordinates.getTargetY() - i*forY));
+            while ((myX != targetX - i*forX) && (myY != targetY - i*forY)) { //teoretycznie wystarczylby jeden warunek
+                RectangleWithPiece RwPToKill = GameWindow.checkSquare((targetX - i*forX), (targetY - i*forY));
                 //nastepny
                 if (RwPToKill.getPiece() != null) {
                     //ten sam kolor
@@ -70,29 +132,56 @@ public class Queen extends Piece {
         return null;
     }
 
-    private boolean killPiece() {
-        //co zbic
-        RectangleWithPiece tokill = Whatpiecestokill();
-        if (tokill == null) {
+    private boolean killPiece(RectangleWithPiece tokill) {
+        if(tokill == null || tokill.getPiece() == this ){
             return false;
         }
-        if (tokill == GameWindow.checkSquare(myX, myY)) { //?
-            return longMove();
-        }
+
         tokill.setPiece(null);
         myY = coordinates.getTargetY();
         myX = coordinates.getTargetX();
+
+        coordinates.nextMove();
         return true;
     }
 
     private boolean longMove(){
-        System.out.println("dlugi");
-        if(abs(coordinates.getTargetX()-myX) == abs(coordinates.getTargetY()-myY) ){
-            this.myY = coordinates.getTargetY();
-            this.myX = coordinates.getTargetX();
-            return true;
+        if(coordinates.getAmountOfMoves() == 0) {
+            if (abs(coordinates.getTargetX() - myX) == abs(coordinates.getTargetY() - myY)) {
+                this.myY = coordinates.getTargetY();
+                this.myX = coordinates.getTargetX();
+
+                coordinates.endMove();
+                return true;
+            }
         }
         return  false;
+    }
+
+    public int anybites(int targetX, int targetY, int forX, int forY){
+        //jesli nie ma pionka to nizej, az bedzie
+        while (GameWindow.checkSquare(targetX, targetY).getPiece() != null){  //najpozniej my sami
+            if(GameWindow.checkSquare(targetX, targetY).getPiece() == this){    //jesli my sami to nie bedzie - najmniejszy
+                return 0;
+            }
+            targetX -= forX;//zbliza sie do nas
+            targetY -= forY;
+        }
+
+        RectangleWithPiece move = whatpiecestokill(targetX,targetY);
+
+        if( move == null){
+            //do nastepnego
+            return anybites(targetX-forX,targetY-forY, forX, forY); //do blizszego pionka - w ostatecznosci wyrowna do siebie)
+            //alternatywnie: return 0;  - odgornie zmniejszac
+        }
+        if( move == GameWindow.checkSquare(myX, myY) ){
+            return 0;   //chodzenie zrobione wczesniej
+        }
+        else{
+            return 1;
+        }
+        //return 0;
     }
 
 }

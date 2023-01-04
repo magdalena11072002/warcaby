@@ -9,7 +9,7 @@ public abstract class Piece extends Button implements Movement{
     protected String color; //dwie wartosci, podana przez hex : #FFFFFF-bialy , #000000-czarny. // todo sprawdzic czy mozna przez klase color
     protected int myX;
     protected int myY;
-    protected final Date coordinates = new Date(); //todo zastanowic sie czy tego mozna sie pozbyc
+    protected Date coordinates;
 
     public Piece(String color, int myY, int myX) {
         //konfiguracja przycisku
@@ -43,11 +43,31 @@ public abstract class Piece extends Button implements Movement{
     private void setupMouseEvents() {
         setOnMouseClicked(e -> {
             if(GameWindow.getPlayer().equals(this.color)){
-                System.out.println("wybrałem przycisk");
-                System.out.println("myX =" + this.myX);
-                System.out.println("myY =" + this.myY);
-                coordinates.setSelectedX(this.myX);
-                coordinates.setSelectedY(this.myY);
+                coordinates=GameWindow.getCoordinates();
+
+                //jesli nic nie wybrane
+                if((coordinates.getSelectedY() == -1 && coordinates.getSelectedX() == -1) || coordinates.getAmountOfMoves() == 0) {
+
+                    System.out.print("wybrałem przycisk");
+                    System.out.print(" myX =" + this.myX);
+                    System.out.println(" myY =" + this.myY);
+                    coordinates.setSelectedX(this.myX);
+                    coordinates.setSelectedY(this.myY);
+
+                    GameWindow.setCoordinates(coordinates);
+                } //jesli drugi klik na wybrany
+                else if(coordinates.getAmountOfMoves()==0 && coordinates.getSelectedX() == myX && coordinates.getSelectedY() == myY){
+
+                    System.out.println("odznaczam przycisk x: "+myX+" y: "+myY);
+                    coordinates.setSelectedX(-1);
+                    coordinates.setSelectedY(-1);
+
+                    GameWindow.setCoordinates(coordinates);
+                }
+                else{
+                    System.out.println("nie mozna wybrac");
+                }
+
             }
             else{
                 System.out.println("zly gracz");
