@@ -1,5 +1,6 @@
 package org.example.GUI;
 
+import java.util.Objects;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -10,8 +11,6 @@ import javafx.stage.Stage;
 import org.example.Data.Date;
 import org.example.Data.TypeData;
 import org.example.GUI.components.RectangleWithPiece;
-
-import java.util.Objects;
 
 
 public class GameWindow extends Application {
@@ -41,7 +40,7 @@ public class GameWindow extends Application {
     }
 
     public static void refreshDisplay() {  //nie wiem czy to jest najoptymalniejszy sposob odswierzenia, tutaj usuwam wszystko i pobieram z chessboard
-        GridPane board = new GridPane();//do samej planszy
+        GridPane board = new GridPane(); //do samej planszy
 
         for (int i = 0; i < chessBoard.length; i++) {
             for (int j = 0; j < chessBoard[i].length; j++) {
@@ -83,39 +82,34 @@ public class GameWindow extends Application {
                 selectSquare = chessBoard[coordinates.getSelectedX()][coordinates.getSelectedY()];
                 targetSquare = chessBoard[coordinates.getTargetX()][coordinates.getTargetY()];
 
-                if(coordinates.getAmountOfMoves() == 0){ //jesli tylko skoczyl
+                if (coordinates.getAmountOfMoves() == 0) { //jesli tylko skoczyl
                     //zwalnia select
                     coordinates.setSelectedX(-1);
                     coordinates.setSelectedY(-1);
-                }
-                else{ //jesli zbil
+                } else { //jesli zbil
                     //przekazuje do select
                     coordinates.setSelectedX(coordinates.getTargetX());
                     coordinates.setSelectedY(coordinates.getTargetY());
                 }
-////
-                //if(ostatni ruch &&
-                //jesli  na krawedziach
-                if((Objects.equals(player, "#000000") && coordinates.getTargetY() == 0) || (Objects.equals(player,"#FFFFFF") && coordinates.getTargetY() == chessBoard.length-1)){
-                    System.out.println("tworzy damke");
-                    //zrob damke
-                    targetSquare.setPiece(targetSquare.createQueen(selectSquare.getPiece().getColor(), coordinates.getTargetY(), coordinates.getTargetX()));
-                }
-                else {
-                    //tworzy pionka jak wczesniej byl
-                    targetSquare.setPiece(selectSquare.getPiece());
-                }
+
+                targetSquare.setPiece(selectSquare.getPiece());
                 selectSquare.setPiece(null);
 
-                coordinates.setTargetY(-1);
-                coordinates.setTargetX(-1);
+                System.out.println(targetSquare.getPiece().possibleBitesHere() + " bites");
 
-                System.out.println(targetSquare.getPiece().possibleBitesHere()+" bites");
+                if (targetSquare.getPiece().possibleBitesHere() == 0 || coordinates.getAmountOfMoves() == 0) { //jesli ostatnie bicie lub nie bicie
 
-                if(targetSquare.getPiece().possibleBitesHere() == 0 || coordinates.getAmountOfMoves() == 0){ //jesli ostatnie bicie lub nie bicie
+                    if ((Objects.equals(player, "#000000") && coordinates.getTargetY() == 0) || (Objects.equals(player, "#FFFFFF") && coordinates.getTargetY() == chessBoard.length - 1)) {
+                        System.out.println("tworzy damke");
+                        //zrob damke
+                        targetSquare.setPiece(targetSquare.createQueen(targetSquare.getPiece().getColor(), coordinates.getTargetY(), coordinates.getTargetX()));
+                    }
 
-                    if (player.equals("#FFFFFF")) player = "#000000";
-                    else player = "#FFFFFF";
+                    if (player.equals("#FFFFFF")) {
+                        player = "#000000";
+                    } else {
+                        player = "#FFFFFF";
+                    }
                     System.out.println("zmiana gracza");
 
                     coordinates.setSelectedX(-1);
@@ -124,6 +118,8 @@ public class GameWindow extends Application {
                     coordinates.endMove();
                 }
 
+                coordinates.setTargetY(-1);
+                coordinates.setTargetX(-1);
                 refreshDisplay();
 
 
@@ -140,16 +136,16 @@ public class GameWindow extends Application {
         return chessBoard[x][y];
     }
 
-    public static int getBoardSize(){
-        return chessBoard.length-1;
+    public static int getBoardSize() {
+        return chessBoard.length - 1;
     }
 
-    public static Date getCoordinates(){
+    public static Date getCoordinates() {
         return coordinates;
     }
 
-    public static void setCoordinates(Date coords){
-        coordinates=coords;
+    public static void setCoordinates(Date coords) {
+        coordinates = coords;
     }
 
 }

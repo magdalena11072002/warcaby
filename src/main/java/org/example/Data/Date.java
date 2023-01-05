@@ -1,18 +1,14 @@
 package org.example.Data;
 
-import org.example.GUI.HelloApplication;
-
-import java.util.Objects;
-
 public class Date {
 
-    private static int selectedX=-1; //współrzędna x pionka
-    private static int selectedY=-1;
+    private static int selectedX = -1; //współrzędna x pionka
+    private static int selectedY = -1;
 
-    private static int targetX=-1;
-    private static int targetY=-1;
+    private static int targetX = -1;
+    private static int targetY = -1;
 
-    private static boolean locked=false;
+    private static boolean locked = false;
 
     private int amountOfMadeMoves = 0;
 
@@ -32,7 +28,7 @@ public class Date {
         return amountOfMadeMoves;
     }
 
-    public int getSelectedX() {return selectedX; }
+    public int getSelectedX() { return selectedX; }
 
     public void setSelectedX(int selectedX) { Date.selectedX = selectedX; }
 

@@ -15,13 +15,13 @@ public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozsz
 
     private final int rectanglesize = 50;
 
-    public enum colortype{
+    public enum colortype {
         LIGHT,
         DARK
     }
     private colortype type;
 
-    public RectangleWithPiece(int myY, int myX) {//ZMIANA wszystkie kwadraty maja byc takie same wiec nie ma sensu podawac wielkosci, wystarczy sama lokalizacja
+    public RectangleWithPiece(int myY, int myX) { //ZMIANA wszystkie kwadraty maja byc takie same wiec nie ma sensu podawac wielkosci, wystarczy sama lokalizacja
         super();
         setHeight(rectanglesize);
         setWidth(rectanglesize);
@@ -39,17 +39,16 @@ public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozsz
         setupMouseEvents();
     }
      */
-    public void setColortype(colortype color){
+    public void setColortype(colortype color) {
         type = color;
 
-        if(type.equals(colortype.LIGHT)){
+        if (type.equals(colortype.LIGHT)) {
             setFill(Color.LIGHTGRAY);
-        }
-        else if (type == colortype.DARK) {
+        } else if (type == colortype.DARK) {
             setFill(Color.DARKGREY);
         }
     }
-    public colortype getColortype(){
+    public colortype getColortype() {
         return type;
     }
 
@@ -76,7 +75,7 @@ public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozsz
         return piece;
     }
 
-    public Piece createQueen(String color, int pieceY, int pieceX){
+    public Piece createQueen(String color, int pieceY, int pieceX) {
         this.piece = new Queen(color, pieceY, pieceX);
         return piece;
     }

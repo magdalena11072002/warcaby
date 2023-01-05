@@ -68,7 +68,7 @@ public class HelloApplication extends Application {
             }
         };
         option2.setOnAction(second);
-        EventHandler<ActionEvent> third=new EventHandler<ActionEvent>() {
+        EventHandler<ActionEvent> third = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 GameWindow.display(new HiszpanskieData());

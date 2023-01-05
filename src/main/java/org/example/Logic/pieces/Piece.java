@@ -4,11 +4,15 @@ import javafx.scene.control.Button;
 import org.example.Data.Date;
 import org.example.GUI.GameWindow;
 
-public abstract class Piece extends Button implements Movement{
+public abstract class Piece extends Button implements Movement {
 
     protected String color; //dwie wartosci, podana przez hex : #FFFFFF-bialy , #000000-czarny. // todo sprawdzic czy mozna przez klase color
     protected int myX;
     protected int myY;
+
+    public static boolean backBites;
+    public static boolean queenAnywhereAfterCapture;
+
     protected Date coordinates;
 
     public Piece(String color, int myY, int myX) {
@@ -16,14 +20,14 @@ public abstract class Piece extends Button implements Movement{
         super();
         setStyle(
                 "-fx-background-radius: 20; "
-                        +"-fx-min-width: 40; "
-                        +"-fx-min-height: 40; "
-                        +"-fx-background-color: "+color+";"
-                        //+"-fx-translate-y: 5; "
-                        +"-fx-translate-x: 5;"
-                        +"-fx-border-color: " + color + ";"
+                        + "-fx-min-width: 40; "
+                        + "-fx-min-height: 40; "
+                        + "-fx-background-color: " + color + ";"
+                        //+ "-fx-translate-y: 5; "
+                        + "-fx-translate-x: 5;"
+                        + "-fx-border-color: " + color + ";"
                         + "-fx-border-radius: 20;"
-                        +"-fx-border-width: 8 ;"
+                        + "-fx-border-width: 8 ;"
         );
 
         setupMouseEvents();
@@ -42,11 +46,11 @@ public abstract class Piece extends Button implements Movement{
 
     private void setupMouseEvents() {
         setOnMouseClicked(e -> {
-            if(GameWindow.getPlayer().equals(this.color)){
-                coordinates=GameWindow.getCoordinates();
+            if (GameWindow.getPlayer().equals(this.color)) {
+                coordinates = GameWindow.getCoordinates();
 
                 //jesli nic nie wybrane
-                if((coordinates.getSelectedY() == -1 && coordinates.getSelectedX() == -1) || coordinates.getAmountOfMoves() == 0) {
+                if ((coordinates.getSelectedY() == -1 && coordinates.getSelectedX() == -1) || coordinates.getAmountOfMoves() == 0) {
 
                     System.out.print("wybrałem przycisk");
                     System.out.print(" myX =" + this.myX);
@@ -55,21 +59,18 @@ public abstract class Piece extends Button implements Movement{
                     coordinates.setSelectedY(this.myY);
 
                     GameWindow.setCoordinates(coordinates);
-                } //jesli drugi klik na wybrany
-                else if(coordinates.getAmountOfMoves()==0 && coordinates.getSelectedX() == myX && coordinates.getSelectedY() == myY){
+                } else if (coordinates.getAmountOfMoves() == 0 && coordinates.getSelectedX() == myX && coordinates.getSelectedY() == myY) {
 
-                    System.out.println("odznaczam przycisk x: "+myX+" y: "+myY);
+                    System.out.println("odznaczam przycisk x: " + myX + " y: " + myY);
                     coordinates.setSelectedX(-1);
                     coordinates.setSelectedY(-1);
 
                     GameWindow.setCoordinates(coordinates);
-                }
-                else{
+                } else {
                     System.out.println("nie mozna wybrac");
                 }
 
-            }
-            else{
+            } else {
                 System.out.println("zly gracz");
             }
         });

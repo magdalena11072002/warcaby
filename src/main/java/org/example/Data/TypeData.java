@@ -8,5 +8,7 @@ public interface TypeData {
     int[] getLinePieces();
     RectangleWithPiece.colortype getPiecesstand();
 
-    //RectangleWithPiece.colortype getFirstboard();
+    RectangleWithPiece.colortype getBoardStart();
+    boolean getCaptureBackwards();
+    public boolean getQueenAfterCapture();
 }

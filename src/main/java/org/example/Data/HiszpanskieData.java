@@ -5,19 +5,20 @@ import org.example.GUI.components.RectangleWithPiece;
 
 public class HiszpanskieData implements TypeData {
 
-    int size = 8;
+    private int size = 8;
 
-    int[] pieceslines = {-1,-1,-1,0,0,1,1,1};
+    private int[] pieceslines = {-1, -1, -1, 0, 0, 1, 1, 1};
     private final RectangleWithPiece.colortype piecesstand = RectangleWithPiece.colortype.LIGHT;
 
     private final RectangleWithPiece.colortype boardstarts = RectangleWithPiece.colortype.DARK;
 
-    boolean capturebackward;
-    boolean obligatorycapture;
+    private boolean capturebackward = false;
 
-    //    boolean anywherequeenaftercapture = true;
-//    boolean queenmultiblecapture = true;
-    int amountofpieces = 12*2;
+    //boolean obligatorycapture = true; //wszedzie true
+
+    private boolean anywherequeenaftercapture = true;
+
+    //int amountofpieces = 12*2;
 
     @Override
     public int getSize() {
@@ -33,5 +34,19 @@ public class HiszpanskieData implements TypeData {
     public RectangleWithPiece.colortype getPiecesstand() {
         return piecesstand;
     }
-    //od razu damka i koniec ruchu
+
+    @Override
+    public RectangleWithPiece.colortype getBoardStart() {
+        return boardstarts;
+    }
+
+    @Override
+    public boolean getCaptureBackwards() {
+        return capturebackward;
+    }
+
+    @Override
+    public boolean getQueenAfterCapture() {
+        return anywherequeenaftercapture;
+    }
 }

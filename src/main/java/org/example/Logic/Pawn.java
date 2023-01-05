@@ -1,11 +1,9 @@
 package org.example.Logic;
 
-import org.example.GUI.components.RectangleWithPiece;
-import org.example.GUI.GameWindow;
-import org.example.Logic.pieces.Piece;
-
 import java.util.Objects;
-
+import org.example.GUI.GameWindow;
+import org.example.GUI.components.RectangleWithPiece;
+import org.example.Logic.pieces.Piece;
 
 public class Pawn extends Piece {
     public Pawn(String color, int myY, int myX) {
@@ -26,35 +24,39 @@ public class Pawn extends Piece {
         int amount = 0;
         int border = GameWindow.getBoardSize();
 
-        if( myX > 1 && myY > 1 ){//lewo gora, przynajmniej 2 od krawedzi
-            if(GameWindow.checkSquare(myX-2, myY - 2).getPiece() == null){
-                RectangleWithPiece tokill = GameWindow.checkSquare(myX-1, myY-1);
-                if(tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)){ //jesli obok pionek i innego koloru
-                    amount += 1;
+        if (!color.equals("#FFFFFF") || backBites) {
+            if (myX > 1 && myY > 1) { //lewo gora, przynajmniej 2 od krawedzi
+                if (GameWindow.checkSquare(myX - 2, myY - 2).getPiece() == null) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(myX - 1, myY - 1);
+                    if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) { //jesli obok pionek i innego koloru
+                        amount += 1;
+                    }
+                }
+            }
+            if (myX < border - 1 && myY > 1) { //prawo gora
+                if (GameWindow.checkSquare(myX + 2, myY - 2).getPiece() == null) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(myX + 1, myY - 1);
+                    if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
+                        amount += 1;
+                    }
                 }
             }
         }
-        if(myX < border-1 && myY > 1 ){ //prawo gora
-            if(GameWindow.checkSquare(myX+2,myY-2).getPiece() == null) {
-                RectangleWithPiece tokill = GameWindow.checkSquare(myX + 1, myY - 1);
-                if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
-                    amount += 1;
+        if (color.equals("#FFFFFF") || backBites) {
+            if (myX < border - 1 && myY < border - 1) { //prawo dol
+                if (GameWindow.checkSquare(myX + 2, myY + 2).getPiece() == null) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(myX + 1, myY + 1);
+                    if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
+                        amount += 1;
+                    }
                 }
             }
-        }
-        if(myX < border-1 && myY < border-1 ){ //prawo dol
-            if(GameWindow.checkSquare(myX+2,myY+2).getPiece() == null) {
-                RectangleWithPiece tokill = GameWindow.checkSquare(myX + 1, myY + 1);
-                if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
-                    amount += 1;
-                }
-            }
-        }
-        if(myX > 1 && myY < border-1 ){ //lewo gora
-            if(GameWindow.checkSquare(myX-2,myY+2).getPiece() == null) {
-                RectangleWithPiece tokill = GameWindow.checkSquare(myX - 1, myY + 1);
-                if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
-                    amount += 1;
+            if (myX > 1 && myY < border - 1) { //lewo gora
+                if (GameWindow.checkSquare(myX - 2, myY + 2).getPiece() == null) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(myX - 1, myY + 1);
+                    if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
+                        amount += 1;
+                    }
                 }
             }
         }
@@ -64,10 +66,10 @@ public class Pawn extends Piece {
     private boolean killPiece() {
         if (coordinates.getTargetX() == this.myX + 2 || coordinates.getTargetX() == this.myX - 2) {
             if (color.equals("#FFFFFF")) { //#FFFFFF-bialy
-                if (coordinates.getTargetY() == this.myY + 2 || coordinates.getTargetY() == this.myY - 2) {
+                if ((coordinates.getTargetY() == this.myY + 2) || (backBites && coordinates.getTargetY() == this.myY - 2)) {
                     RectangleWithPiece rectangleWithPieceToKill = GameWindow.checkSquare((coordinates.getSelectedX() + coordinates.getTargetX()) / 2, (coordinates.getSelectedY() + coordinates.getTargetY()) / 2);
-                    if (rectangleWithPieceToKill.getPiece() == null) return false; //nie ma bicia
-                    if (rectangleWithPieceToKill.getPiece().getColor().equals("#FFFFFF")) return false;
+                    if (rectangleWithPieceToKill.getPiece() == null) { return false; } //nie ma bicia
+                    if (rectangleWithPieceToKill.getPiece().getColor().equals("#FFFFFF")) { return false; }
                     rectangleWithPieceToKill.setPiece(null);
                     this.myY = coordinates.getTargetY();
                     this.myX = coordinates.getTargetX();
@@ -76,10 +78,10 @@ public class Pawn extends Piece {
                     return true;
                 }
             } else {
-                if (coordinates.getTargetY() == this.myY - 2) {
+                if (coordinates.getTargetY() == this.myY - 2 || (backBites && coordinates.getTargetY() == this.myY + 2)) {
                     RectangleWithPiece rectangleWithPieceToKill = GameWindow.checkSquare((coordinates.getSelectedX() + coordinates.getTargetX()) / 2, (coordinates.getSelectedY() + coordinates.getTargetY()) / 2);
-                    if (rectangleWithPieceToKill.getPiece() == null) return false; //nie ma bicia
-                    if (rectangleWithPieceToKill.getPiece().getColor().equals("#000000")) return false;
+                    if (rectangleWithPieceToKill.getPiece() == null) { return false; } //nie ma bicia
+                    if (rectangleWithPieceToKill.getPiece().getColor().equals("#000000")) { return false; }
                     rectangleWithPieceToKill.setPiece(null);
                     this.myY = coordinates.getTargetY();
                     this.myX = coordinates.getTargetX();
@@ -95,9 +97,9 @@ public class Pawn extends Piece {
     }
 
     private boolean simpleMove() {
-        if(coordinates.getAmountOfMoves() == 0) {
+        if (coordinates.getAmountOfMoves() == 0) {
 
-            if (coordinates.getTargetX() == this.myX + 1 || coordinates.getTargetX() == this.myX - 1) {//czarnych i bialych ta sama zasada
+            if (coordinates.getTargetX() == this.myX + 1 || coordinates.getTargetX() == this.myX - 1) { //czarnych i bialych ta sama zasada
                 if (color.equals("#FFFFFF")) { //#FFFFFF-bialy
                     if (coordinates.getTargetY() == this.myY + 1) {
                         this.myY = coordinates.getTargetY();
@@ -105,7 +107,7 @@ public class Pawn extends Piece {
                         coordinates.endMove();
                         return true;
                     }
-                } else if (coordinates.getTargetY() == this.myY - 1) {//#000000-czarny
+                } else if (coordinates.getTargetY() == this.myY - 1) { //#000000-czarny
                     this.myY = coordinates.getTargetY();
                     this.myX = coordinates.getTargetX();
                     coordinates.endMove();
