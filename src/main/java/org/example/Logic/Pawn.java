@@ -1,5 +1,6 @@
 package org.example.Logic;
 
+import java.util.HashSet;
 import java.util.Objects;
 import org.example.GUI.GameWindow;
 import org.example.GUI.components.RectangleWithPiece;
@@ -20,22 +21,26 @@ public class Pawn extends Piece {
 
     @Override
     public int possibleBitesHere() {
+        return possibleBitesHere(myX, myY);
+    }
+
+    public int possibleBitesHere(int xX, int yY) {
 
         int amount = 0;
         int border = GameWindow.getBoardSize();
 
         if (!color.equals("#FFFFFF") || backBites) {
-            if (myX > 1 && myY > 1) { //lewo gora, przynajmniej 2 od krawedzi
-                if (GameWindow.checkSquare(myX - 2, myY - 2).getPiece() == null) {
-                    RectangleWithPiece tokill = GameWindow.checkSquare(myX - 1, myY - 1);
+            if (xX > 1 && yY > 1) { //lewo gora, przynajmniej 2 od krawedzi
+                if (GameWindow.checkSquare(xX - 2, yY - 2).getPiece() == null) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(xX - 1, yY - 1);
                     if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) { //jesli obok pionek i innego koloru
                         amount += 1;
                     }
                 }
             }
-            if (myX < border - 1 && myY > 1) { //prawo gora
-                if (GameWindow.checkSquare(myX + 2, myY - 2).getPiece() == null) {
-                    RectangleWithPiece tokill = GameWindow.checkSquare(myX + 1, myY - 1);
+            if (xX < border - 1 && yY > 1) { //prawo gora
+                if (GameWindow.checkSquare(xX + 2, yY - 2).getPiece() == null) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(xX + 1, yY - 1);
                     if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
                         amount += 1;
                     }
@@ -43,17 +48,17 @@ public class Pawn extends Piece {
             }
         }
         if (color.equals("#FFFFFF") || backBites) {
-            if (myX < border - 1 && myY < border - 1) { //prawo dol
-                if (GameWindow.checkSquare(myX + 2, myY + 2).getPiece() == null) {
-                    RectangleWithPiece tokill = GameWindow.checkSquare(myX + 1, myY + 1);
+            if (xX < border - 1 && yY < border - 1) { //prawo dol
+                if (GameWindow.checkSquare(xX + 2, yY + 2).getPiece() == null) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(xX + 1, yY + 1);
                     if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
                         amount += 1;
                     }
                 }
             }
-            if (myX > 1 && myY < border - 1) { //lewo gora
-                if (GameWindow.checkSquare(myX - 2, myY + 2).getPiece() == null) {
-                    RectangleWithPiece tokill = GameWindow.checkSquare(myX - 1, myY + 1);
+            if (xX > 1 && yY < border - 1) { //lewo gora
+                if (GameWindow.checkSquare(xX - 2, yY + 2).getPiece() == null) {                                    // BLAD
+                    RectangleWithPiece tokill = GameWindow.checkSquare(xX - 1, yY + 1);
                     if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
                         amount += 1;
                     }
@@ -61,6 +66,15 @@ public class Pawn extends Piece {
             }
         }
         return amount;
+    }
+
+    @Override
+    public int longestway() {
+        //return longestway(myX,myY, new HashSet<RectangleWithPiece>());
+
+        int trasa = longestway(myX, myY, new HashSet<RectangleWithPiece>());
+        System.out.println(" ! taki dla tego punktu " + trasa);
+        return trasa;
     }
 
     private boolean killPiece() {
@@ -118,6 +132,7 @@ public class Pawn extends Piece {
         return false;
     }
 
+    /*
     private boolean bites() {
         if (coordinates.getTargetX() == this.myX + 2 || coordinates.getTargetX() == this.myX - 2) {
             if (color.equals("#FFFFFF")) { //#FFFFFF-bialy
@@ -130,5 +145,116 @@ public class Pawn extends Piece {
             return true;
         }
         return false;
+    }*/
+
+    public int longestway(int xX, int yY, HashSet<RectangleWithPiece> biten) {
+        int way = 0; //liczy ogolna
+        int newway; //to jest na kawalek do porownania
+
+        int border = GameWindow.getBoardSize();
+
+        if (possibleBitesHere(xX, yY) != 0) {             //sprawdzanie sciezki bic
+            if (color.equals("#000000") || backBites) {
+                if (xX > 1 && yY > 1) {   //lewo gora
+                    if (GameWindow.checkSquare(xX - 2, yY - 2).getPiece() == null) { //jest gdzie isc
+                        RectangleWithPiece tokill = GameWindow.checkSquare(xX - 1, yY - 1);   //tam zbic
+                        if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {  //jesli cos tam stoi i inny kolor
+                            HashSet<RectangleWithPiece> alreadybiten = new HashSet<>(biten);    //kopia juz zbitych
+                            if (!alreadybiten.contains(tokill)) {    //jesli nie ma w juz zbitych
+                                alreadybiten.add(tokill);   //dodaj
+                                newway = longestway(xX - 2, yY - 2, alreadybiten) + 1;
+
+                                if (newway > way) {
+                                    way = newway;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (xX < border - 1 && yY > 1) { //prawo gora
+                    if (GameWindow.checkSquare(xX + 2, yY - 2).getPiece() == null) {
+                        RectangleWithPiece tokill = GameWindow.checkSquare(xX + 1, yY - 1);
+                        if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
+                            HashSet<RectangleWithPiece> alreadybiten = new HashSet<>(biten);
+                            if (!alreadybiten.contains(tokill)) {
+                                alreadybiten.add(tokill);
+                                newway = longestway(xX + 2, yY - 2, alreadybiten) + 1;
+                                if (newway > way) {
+                                    way = newway;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+            if (color.equals("#FFFFFF") || backBites) {
+                if (xX < border - 1 && yY < border - 1) { //prawo dol
+                    if (GameWindow.checkSquare(xX + 2, yY + 2).getPiece() == null) {
+                        RectangleWithPiece tokill = GameWindow.checkSquare(xX + 1, yY + 1);
+                        if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
+                            HashSet<RectangleWithPiece> alreadybiten = new HashSet<>(biten);
+                            if (!alreadybiten.contains(tokill)) {
+                                alreadybiten.add(tokill);
+                                newway = longestway(xX + 2, yY + 2, alreadybiten) + 1;
+                                if (newway > way) {
+                                    way = newway;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (xX > 1 && yY < border - 1) { //lewo gora
+                    if (GameWindow.checkSquare(xX - 2, yY + 2).getPiece() == null) {
+                        RectangleWithPiece tokill = GameWindow.checkSquare(xX - 1, yY + 1);
+                        if (tokill.getPiece() != null && !Objects.equals(tokill.getPiece().getColor(), color)) {
+                            HashSet<RectangleWithPiece> alreadybiten = new HashSet<>(biten);
+                            if (!alreadybiten.contains(tokill)) {
+                                alreadybiten.add(tokill);
+                                newway = longestway(xX - 2, yY + 2, alreadybiten) + 1;
+                                if (newway > way) {
+                                    way = newway;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (biten.isEmpty()) {  //puste - nic nie zbito = pierwsze powtorzenie
+            newway = -1;
+            if (color.equals("#FFFFFF") && yY < border) {
+                if (xX > 0) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(xX - 1, yY + 1);   //to co zbic
+                    if (tokill.getPiece() == null) {
+                        newway = 0;
+                    }
+                }
+                if (xX < border) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(xX + 1, yY + 1);   //to co zbic
+                    if (tokill.getPiece() == null) {
+                        newway = 0;
+                    }
+                }
+            } else if (color.equals("#000000") && yY > 0) {
+                if (xX > 0) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(xX - 1, yY - 1);   //to co zbic
+                    if (tokill.getPiece() == null) {
+                        newway = 0;
+                    }
+                }
+                if (xX < border) {
+                    RectangleWithPiece tokill = GameWindow.checkSquare(xX + 1, yY - 1);   //to co zbic
+                    if (tokill.getPiece() == null) {
+                        newway = 0;
+                    }
+                }
+            }
+            if (newway != 0) {
+                way = newway; //= -1
+            }
+        }
+        return way;
     }
+
+
 }

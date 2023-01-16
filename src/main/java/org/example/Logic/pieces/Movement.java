@@ -5,4 +5,6 @@ public interface Movement {
 
     int possibleBitesHere();
 
+    int longestway();
+
 }

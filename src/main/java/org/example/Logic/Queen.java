@@ -85,6 +85,11 @@ public class Queen extends Piece {
         return amount;
     }
 
+    @Override
+    public int longestway() {
+        return 0;
+    }
+
     private RectangleWithPiece whatpiecestokill(int targetX, int targetY) {
         RectangleWithPiece tokill = null;
         int amount = 0;
@@ -117,7 +122,7 @@ public class Queen extends Piece {
                     if (i == 1 || queenAnywhereAfterCapture) {
                         tokill = rwptokill; //?czy to na pewno to bedzie
                     } else {
-                        tokill = null;
+                        break;
                     }
                 }
                 i++;

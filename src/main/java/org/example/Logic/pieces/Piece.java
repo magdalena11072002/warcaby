@@ -3,6 +3,7 @@ package org.example.Logic.pieces;
 import javafx.scene.control.Button;
 import org.example.Data.Date;
 import org.example.GUI.GameWindow;
+import org.example.Logic.Pawn;
 
 public abstract class Piece extends Button implements Movement {
 
@@ -57,6 +58,13 @@ public abstract class Piece extends Button implements Movement {
                     System.out.println(" myY =" + this.myY);
                     coordinates.setSelectedX(this.myX);
                     coordinates.setSelectedY(this.myY);
+
+                    //
+                    if(this.getClass() == Pawn.class){
+                        System.out.println(" ! pawn ");
+                        longestway();
+                    }
+                    //
 
                     GameWindow.setCoordinates(coordinates);
                 } else if (coordinates.getAmountOfMoves() == 0 && coordinates.getSelectedX() == myX && coordinates.getSelectedY() == myY) {
