@@ -83,4 +83,8 @@ public abstract class Piece extends Button implements Movement {
             }
         });
     }
+    public void setEndingMouseEvents(){
+        setOnMouseClicked(e -> {
+        });
+    }
 }

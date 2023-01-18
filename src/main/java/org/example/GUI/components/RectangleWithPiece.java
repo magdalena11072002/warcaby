@@ -92,5 +92,10 @@ public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozsz
             GameWindow.makeMove(myX, myY);
         });
     }
+
+    public void setEndingMouseEvents(){
+        setOnMouseClicked(e -> {
+        });
+    }
 }
 
