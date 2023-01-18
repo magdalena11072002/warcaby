@@ -1,21 +1,26 @@
-package org.example.Logic;
+package org.example.logic;
 
 import java.util.HashSet;
 import java.util.Objects;
-import org.example.GUI.GameWindow;
-import org.example.GUI.components.RectangleWithPiece;
-import org.example.Logic.pieces.Piece;
+import org.example.gui.GameWindow;
+import org.example.gui.components.RectangleWithPiece;
+import org.example.logic.pieces.Piece;
 
 public class Pawn extends Piece {
     public Pawn(String color, int myY, int myX) {
         super(color, myY, myX);
     }
 
+   // private int amountOfWhitePawns;
+   // private int amountOfBlackPawns;
+
     @Override
     public boolean makeMove() {
         coordinates = GameWindow.getCoordinates();
         boolean moves = killPiece() || simpleMove();
         GameWindow.setCoordinates(coordinates);
+        //amountOfWhitePawns=GameWindow.getAmountOfPawns();
+        //amountOfBlackPawns=GameWindow.getAmountOfPawns();
         return moves;
     }
 
@@ -72,7 +77,7 @@ public class Pawn extends Piece {
     public int longestway() {
         //return longestway(myX,myY, new HashSet<RectangleWithPiece>());
 
-        int trasa = longestway(myX, myY, new HashSet<RectangleWithPiece>());
+        int trasa = longestway(myX, myY, new HashSet<>());
         System.out.println(" ! taki dla tego punktu " + trasa);
         return trasa;
     }
@@ -87,6 +92,8 @@ public class Pawn extends Piece {
                     rectangleWithPieceToKill.setPiece(null);
                     this.myY = coordinates.getTargetY();
                     this.myX = coordinates.getTargetX();
+                    //amountOfWhitePawns=amountOfWhitePawns-1;
+                    //System.out.println(amountOfWhitePawns);
                     coordinates.setLocked(true);
                     coordinates.nextMove();
                     return true;
@@ -99,9 +106,10 @@ public class Pawn extends Piece {
                     rectangleWithPieceToKill.setPiece(null);
                     this.myY = coordinates.getTargetY();
                     this.myX = coordinates.getTargetX();
+                    //amountOfBlackPawns=amountOfBlackPawns-1;
+                    //System.out.println(amountOfBlackPawns);
                     coordinates.setLocked(true);
                     coordinates.nextMove();
-
                     return true;
                 }
             }
@@ -131,21 +139,6 @@ public class Pawn extends Piece {
         }
         return false;
     }
-
-    /*
-    private boolean bites() {
-        if (coordinates.getTargetX() == this.myX + 2 || coordinates.getTargetX() == this.myX - 2) {
-            if (color.equals("#FFFFFF")) { //#FFFFFF-bialy
-                if (coordinates.getTargetY() == this.myY + 2 || coordinates.getTargetY() == this.myY - 2) {
-                }
-            } else {
-                if (coordinates.getTargetY() == this.myY - 2) {
-                }
-            }
-            return true;
-        }
-        return false;
-    }*/
 
     public int longestway(int xX, int yY, HashSet<RectangleWithPiece> biten) {
         int way = 0; //liczy ogolna

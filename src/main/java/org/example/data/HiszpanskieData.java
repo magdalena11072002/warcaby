@@ -1,27 +1,22 @@
-package org.example.Data;
+package org.example.data;
 
-import org.example.GUI.components.RectangleWithPiece;
+import org.example.gui.components.RectangleWithPiece;
 
 
 public class HiszpanskieData implements TypeData {
 
-    private int size = 8;
-
-    private int[] pieceslines = {-1, -1, -1, 0, 0, 1, 1, 1};
+    private final int[] pieceslines = {-1, -1, -1, 0, 0, 1, 1, 1};
     private final RectangleWithPiece.colortype piecesstand = RectangleWithPiece.colortype.LIGHT;
 
     private final RectangleWithPiece.colortype boardstarts = RectangleWithPiece.colortype.DARK;
 
-    private boolean capturebackward = false;
-
     //boolean obligatorycapture = true; //wszedzie true
-
-    private boolean anywherequeenaftercapture = true;
 
     //int amountofpieces = 12*2;
 
     @Override
     public int getSize() {
+        int size = 8;
         return size;
     }
 
@@ -42,11 +37,18 @@ public class HiszpanskieData implements TypeData {
 
     @Override
     public boolean getCaptureBackwards() {
+        boolean capturebackward = false;
         return capturebackward;
     }
 
     @Override
     public boolean getQueenAfterCapture() {
+        boolean anywherequeenaftercapture = true;
         return anywherequeenaftercapture;
+    }
+
+    @Override
+    public int amountOfPawns() {
+        return 12;
     }
 }

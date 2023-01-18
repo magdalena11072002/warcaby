@@ -1,4 +1,4 @@
-package org.example.GUI;
+package org.example.gui;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -15,9 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import org.example.Data.DwulinioweData;
-import org.example.Data.HiszpanskieData;
-import org.example.Data.PolskieData;
+import org.example.data.DwulinioweData;
+import org.example.data.HiszpanskieData;
+import org.example.data.PolskieData;
 
 public class HelloApplication extends Application {
     public static void main(String[] args) {
@@ -31,7 +31,6 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-        //Layouty - zrobilam takie cos, ale zawsze mozna zmienic
         VBox root = new VBox(); //pionowo
 
         root.setAlignment(Pos.CENTER);
@@ -46,7 +45,6 @@ public class HelloApplication extends Application {
         Label welcome = new Label("\nWitamy w warcabach\n");
         Label choice = new Label("Prosze wybrać rodzaj gry:");
 
-        //welcome.setTextFill(Color.BLACK); //zmiana koloru tekstu
         welcome.setFont(Font.font("Bahnschrift", FontWeight.BOLD, 20));
         choice.setFont(Font.font("Bahnschrift", 20));
 

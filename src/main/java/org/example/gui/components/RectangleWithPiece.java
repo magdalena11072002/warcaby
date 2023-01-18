@@ -1,19 +1,17 @@
-package org.example.GUI.components;
+package org.example.gui.components;
 
 
 import javafx.scene.paint.Color;
-import org.example.GUI.GameWindow;
-import org.example.Logic.Pawn;
-import org.example.Logic.Queen;
-import org.example.Logic.pieces.Piece;
+import org.example.gui.GameWindow;
+import org.example.logic.Pawn;
+import org.example.logic.Queen;
+import org.example.logic.pieces.Piece;
 import javafx.scene.shape.Rectangle;
 
 public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozszerzenie, wydaje sie czytelniejsze
     private Piece piece = null;
     private final int myX;
     private final int myY;
-
-    private final int rectanglesize = 50;
 
     public enum colortype {
         LIGHT,
@@ -23,6 +21,7 @@ public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozsz
 
     public RectangleWithPiece(int myY, int myX) { //ZMIANA wszystkie kwadraty maja byc takie same wiec nie ma sensu podawac wielkosci, wystarczy sama lokalizacja
         super();
+        int rectanglesize = 50;
         setHeight(rectanglesize);
         setWidth(rectanglesize);
         this.myX = myX;

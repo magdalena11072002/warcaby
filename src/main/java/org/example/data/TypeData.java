@@ -1,6 +1,6 @@
-package org.example.Data;
+package org.example.data;
 
-import org.example.GUI.components.RectangleWithPiece;
+import org.example.gui.components.RectangleWithPiece;
 
 public interface TypeData {
 
@@ -11,4 +11,6 @@ public interface TypeData {
     RectangleWithPiece.colortype getBoardStart();
     boolean getCaptureBackwards();
     public boolean getQueenAfterCapture();
+
+    int amountOfPawns();
 }

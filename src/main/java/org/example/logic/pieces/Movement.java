@@ -1,4 +1,4 @@
-package org.example.Logic.pieces;
+package org.example.logic.pieces;
 
 public interface Movement {
     boolean makeMove();

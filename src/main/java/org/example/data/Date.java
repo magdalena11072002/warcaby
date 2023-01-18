@@ -1,4 +1,4 @@
-package org.example.Data;
+package org.example.data;
 
 public class Date {
 
@@ -11,7 +11,6 @@ public class Date {
     private static boolean locked = false;
 
     private int amountOfMadeMoves = 0;
-
     public boolean isLocked() { return locked; }
 
     public void setLocked(boolean locked) { Date.locked = locked; }

@@ -5,8 +5,8 @@ module org.example {
     requires javafx.graphics;
     requires javafx.graphicsEmpty;
 
-    exports org.example.GUI;
-    exports org.example.GUI.components;
-    exports org.example.Data;
-    exports org.example.Logic;
+    exports org.example.gui;
+    exports org.example.gui.components;
+    exports org.example.data;
+    exports org.example.logic;
 }

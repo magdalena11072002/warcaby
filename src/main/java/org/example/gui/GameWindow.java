@@ -1,4 +1,4 @@
-package org.example.GUI;
+package org.example.gui;
 
 import java.util.Objects;
 import javafx.application.Application;
@@ -8,26 +8,21 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.example.Data.Date;
-import org.example.Data.TypeData;
-import org.example.GUI.components.RectangleWithPiece;
-import org.example.Logic.pieces.Piece;
+import org.example.data.Date;
+import org.example.data.TypeData;
+import org.example.gui.components.RectangleWithPiece;
+import org.example.logic.pieces.Piece;
 
 
 public class GameWindow extends Application {
-    private static RectangleWithPiece[][] chessBoard; // to raczej git
-    //private static int size = 10;  // to ma byc programowalne, tzn z klasy Hello Application po wybranej opcji powinno to byc nastawione, moze cos display(int size) itd;
+    private static RectangleWithPiece[][] chessBoard;
     private static Date coordinates = new Date(); //mega wazne!!! warto sie zastanowic czy nie idzie tego usunac i przekazywac wartosci przez parametry
-    private static String player = "#FFFFFF";
-    private static Stage stage = new Stage();  // chyba tak ale nie wiem xd
-    //private static String option1;
-    //usunac/zmienic/nadawac na biezaco
+    private static String player = "#FFFFFF"; //kolor biały
+    private static final Stage stage = new Stage();
 
-    private static int maxWay = 0;
-
+    private static int maxWay;
 
     private static void setup(BorderPane root) {
-        //zeby mozna bylo pozniej cos dodac innego jeszcze np z boku
         root.setBackground(new Background(new BackgroundFill(Color.BLANCHEDALMOND, null, null)));
         root.setPadding(new Insets(25)); //marginesy
         Label communication = new Label("Rozpoczęto rozgrywke");
@@ -48,9 +43,6 @@ public class GameWindow extends Application {
         for (int i = 0; i < chessBoard.length; i++) {
             for (int j = 0; j < chessBoard[i].length; j++) {
                 RectangleWithPiece square = chessBoard[i][j]; // klasa rozszerzona o bierke
-                /*if (((i + j) % 2) == 0) {
-                    square.setFill(Color.GREY);//byle jaki kolor dalam, byle rozne byly
-                }*/
                 board.add(square, i + 1, j + 1);
                 if (square.getPiece() != null) {
                     board.add(square.getPiece(), i + 1, j + 1);
@@ -66,7 +58,6 @@ public class GameWindow extends Application {
         stage.show();
     }
 
-    //musi byc ponoc
     @Override
     public void start(Stage stage) {
     }
@@ -157,7 +148,7 @@ public class GameWindow extends Application {
         }
     }
 
-    public static String getPlayer() {
+    public String getPlayer() {
         return player;
     }
 

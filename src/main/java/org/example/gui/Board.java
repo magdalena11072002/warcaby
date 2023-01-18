@@ -1,15 +1,15 @@
-package org.example.GUI;
+package org.example.gui;
 
-import org.example.Data.TypeData;
-import org.example.GUI.components.RectangleWithPiece;
-import org.example.Logic.pieces.Piece;
+import org.example.data.TypeData;
+import org.example.gui.components.RectangleWithPiece;
+import org.example.logic.pieces.Piece;
 
 public class Board {
-    private int size;
-    private int[] pieceslines;
-    private RectangleWithPiece.colortype piecestand;
-    private RectangleWithPiece.colortype firstboard;
-    private RectangleWithPiece.colortype secondboard;
+    private final int size;
+    private final int[] pieceslines;
+    private final RectangleWithPiece.colortype piecestand;
+    private final RectangleWithPiece.colortype firstboard;
+    private final RectangleWithPiece.colortype secondboard;
 
     private RectangleWithPiece[][] chessBoard;
     Board(TypeData type) {
@@ -24,9 +24,6 @@ public class Board {
     }
 
     public RectangleWithPiece[][] createBoard() {
-        /*if(chessBoard == null){ //singleton??? m
-            createBoardd();
-        }*/
         createBoardd();
         return chessBoard;
 

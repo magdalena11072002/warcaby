@@ -1,23 +1,19 @@
-package org.example.Data;
+package org.example.data;
 
-import org.example.GUI.components.RectangleWithPiece;
+import org.example.gui.components.RectangleWithPiece;
 
 public class PolskieData implements TypeData {
 
-    private final int size = 10;
     private final int[] pieceslines = {-1, -1, -1, -1, 0, 0, 1, 1, 1, 1};
     private final RectangleWithPiece.colortype piecesstand = RectangleWithPiece.colortype.DARK;
 
     private final RectangleWithPiece.colortype boardstarts = RectangleWithPiece.colortype.LIGHT;
 
-    private final boolean capturebackward = true;
-
     //private final boolean obligatorycapture = true;
-
-    private boolean anywherequeenaftercapture = false;
 
     @Override
     public int getSize() {
+        int size = 10;
         return size;
     }
 
@@ -38,12 +34,19 @@ public class PolskieData implements TypeData {
 
     @Override
     public boolean getCaptureBackwards() {
+        boolean capturebackward = true;
         return capturebackward;
     }
 
     @Override
     public boolean getQueenAfterCapture() {
+        boolean anywherequeenaftercapture = false;
         return anywherequeenaftercapture;
+    }
+
+    @Override
+    public int amountOfPawns() {
+        return 16;
     }
 
 

@@ -1,24 +1,20 @@
-package org.example.Data;
+package org.example.data;
 
-import org.example.GUI.components.RectangleWithPiece;
+import org.example.gui.components.RectangleWithPiece;
 
 public class DwulinioweData implements TypeData {
 
-    private int size = 8;
+    private final int[] pieceslines = {-1, -1, 0, 0, 0, 0, 1, 1};
 
-    private int[] pieceslines = {-1, -1, 0, 0, 0, 0, 1, 1};
     private final RectangleWithPiece.colortype piecesstand = RectangleWithPiece.colortype.DARK;
 
     private final RectangleWithPiece.colortype boardstarts = RectangleWithPiece.colortype.LIGHT;
 
-    private final boolean capturebackward = false;
-
     //private final boolean obligatorycapture = true;
-
-    private boolean anywherequeenaftercapture = true;
 
     @Override
     public int getSize() {
+        int size = 8;
         return size;
     }
 
@@ -39,12 +35,20 @@ public class DwulinioweData implements TypeData {
 
     @Override
     public boolean getCaptureBackwards() {
+        boolean capturebackward = false;
         return capturebackward;
     }
 
     @Override
     public boolean getQueenAfterCapture() {
+        boolean anywherequeenaftercapture = true;
         return anywherequeenaftercapture;
     }
+
+    @Override
+    public int amountOfPawns() {
+        return 8;
+    }
+
 
 }

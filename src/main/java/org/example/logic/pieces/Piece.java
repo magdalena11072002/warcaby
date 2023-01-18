@@ -1,13 +1,13 @@
-package org.example.Logic.pieces;
+package org.example.logic.pieces;
 
 import javafx.scene.control.Button;
-import org.example.Data.Date;
-import org.example.GUI.GameWindow;
-import org.example.Logic.Pawn;
+import org.example.data.Date;
+import org.example.gui.GameWindow;
+import org.example.logic.Pawn;
 
 public abstract class Piece extends Button implements Movement {
 
-    protected String color; //dwie wartosci, podana przez hex : #FFFFFF-bialy , #000000-czarny. // todo sprawdzic czy mozna przez klase color
+    protected String color; //dwie wartosci, podana przez hex : #FFFFFF-bialy , #000000-czarny.
     protected int myX;
     protected int myY;
 
@@ -37,6 +37,8 @@ public abstract class Piece extends Button implements Movement {
         this.myY = myY;
     }
 
+    GameWindow gameWindow=new GameWindow();
+
     public String getColor() {
         return color;
     }
@@ -47,7 +49,7 @@ public abstract class Piece extends Button implements Movement {
 
     private void setupMouseEvents() {
         setOnMouseClicked(e -> {
-            if (GameWindow.getPlayer().equals(this.color)) {
+            if (gameWindow.getPlayer().equals(this.color)) {
                 coordinates = GameWindow.getCoordinates();
 
                 //jesli nic nie wybrane
@@ -59,12 +61,10 @@ public abstract class Piece extends Button implements Movement {
                     coordinates.setSelectedX(this.myX);
                     coordinates.setSelectedY(this.myY);
 
-                    //
                     if(this.getClass() == Pawn.class){
                         System.out.println(" ! pawn ");
                         longestway();
                     }
-                    //
 
                     GameWindow.setCoordinates(coordinates);
                 } else if (coordinates.getAmountOfMoves() == 0 && coordinates.getSelectedX() == myX && coordinates.getSelectedY() == myY) {

@@ -1,8 +1,8 @@
-package org.example.Logic;
+package org.example.logic;
 
-import org.example.GUI.GameWindow;
-import org.example.GUI.components.RectangleWithPiece;
-import org.example.Logic.pieces.Piece;
+import org.example.gui.GameWindow;
+import org.example.gui.components.RectangleWithPiece;
+import org.example.logic.pieces.Piece;
 
 import static java.lang.Math.abs;
 
