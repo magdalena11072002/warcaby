@@ -8,18 +8,18 @@ import org.example.logic.Queen;
 import org.example.logic.pieces.Piece;
 import javafx.scene.shape.Rectangle;
 
-public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozszerzenie, wydaje sie czytelniejsze
+public class RectangleWithPiece extends Rectangle {
     private Piece piece = null;
     private final int myX;
     private final int myY;
 
-    public enum colortype {
+    public enum Colortype {
         LIGHT,
         DARK
     }
-    private colortype type;
+    private Colortype type;
 
-    public RectangleWithPiece(int myY, int myX) { //ZMIANA wszystkie kwadraty maja byc takie same wiec nie ma sensu podawac wielkosci, wystarczy sama lokalizacja
+    public RectangleWithPiece(int myY, int myX) {
         super();
         int rectanglesize = 50;
         setHeight(rectanglesize);
@@ -30,7 +30,7 @@ public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozsz
     }
 
     /*
-    public RectangleWithPiece(int myY, int myX, colortype color){
+    public RectangleWithPiece(int myY, int myX, Colortype color){
         super(50, 50);
         this.myX = myX;
         this.myY = myY;
@@ -38,25 +38,25 @@ public class RectangleWithPiece extends Rectangle { //zmienialam pomysl na rozsz
         setupMouseEvents();
     }
      */
-    public void setColortype(colortype color) {
+    public void setColortype(Colortype color) {
         type = color;
 
-        if (type.equals(colortype.LIGHT)) {
+        if (type.equals(Colortype.LIGHT)) {
             setFill(Color.LIGHTGRAY);
-        } else if (type == colortype.DARK) {
+        } else if (type == Colortype.DARK) {
             setFill(Color.DARKGREY);
         }
     }
-    public colortype getColortype() {
+    public Colortype getColortype() {
         return type;
     }
 
-    /*public colortype otherColortype(colortype type){
-        if( type.equals(colortype.LIGHT)){
-            return colortype.DARK;
+    /*public Colortype otherColortype(Colortype type){
+        if( type.equals(Colortype.LIGHT)){
+            return Colortype.DARK;
         }
         else {
-            return colortype.LIGHT;
+            return Colortype.LIGHT;
         }
     }*/
 

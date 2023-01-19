@@ -6,11 +6,9 @@ public interface TypeData {
 
     int getSize();
     int[] getLinePieces();
-    RectangleWithPiece.colortype getPiecesstand();
+    RectangleWithPiece.Colortype getPiecesstand();
 
-    RectangleWithPiece.colortype getBoardStart();
-    boolean getCaptureBackwards();
-    public boolean getQueenAfterCapture();
-
-    int amountOfPawns();
+    RectangleWithPiece.Colortype getBoardStart();
+    boolean isAbleCaptureBackwards();
+    boolean isStandingAnywhereQueenAfterCapture();
 }

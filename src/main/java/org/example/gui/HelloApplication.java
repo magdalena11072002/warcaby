@@ -19,14 +19,14 @@ import org.example.data.DwulinioweData;
 import org.example.data.HiszpanskieData;
 import org.example.data.PolskieData;
 
-public class HelloApplication extends Application {
+public class HelloApplication extends Application {    private final Button option1 = new Button("Warcaby polskie");
+
+    private final Button option2 = new Button("Warcaby dwuliniowe");
+    private final Button option3 = new Button("Warcaby hiszpańskie");
+
     public static void main(String[] args) {
         launch(args);
     }
-
-    private final Button option1 = new Button("Warcaby polskie");
-    private final Button option2 = new Button("Warcaby dwuliniowe");
-    private final Button option3 = new Button("Warcaby hiszpańskie");
 
 
     @Override

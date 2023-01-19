@@ -8,12 +8,9 @@ public class Date {
     private static int targetX = -1;
     private static int targetY = -1;
 
-    private static boolean locked = false;
+    //private static boolean locked = false;
 
-    private int amountOfMadeMoves = 0;
-    public boolean isLocked() { return locked; }
-
-    public void setLocked(boolean locked) { Date.locked = locked; }
+    private int amountOfMadeMoves;
 
     public void endMove() {
         amountOfMadeMoves = 0;

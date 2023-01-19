@@ -2,6 +2,7 @@ package org.example.logic;
 
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import org.example.gui.GameWindow;
 import org.example.gui.components.RectangleWithPiece;
 import org.example.logic.pieces.Piece;
@@ -11,16 +12,12 @@ public class Pawn extends Piece {
         super(color, myY, myX);
     }
 
-   // private int amountOfWhitePawns;
-   // private int amountOfBlackPawns;
 
     @Override
     public boolean makeMove() {
         coordinates = GameWindow.getCoordinates();
         boolean moves = killPiece() || simpleMove();
         GameWindow.setCoordinates(coordinates);
-        //amountOfWhitePawns=GameWindow.getAmountOfPawns();
-        //amountOfBlackPawns=GameWindow.getAmountOfPawns();
         return moves;
     }
 
@@ -78,38 +75,35 @@ public class Pawn extends Piece {
         //return longestway(myX,myY, new HashSet<RectangleWithPiece>());
 
         int trasa = longestway(myX, myY, new HashSet<>());
-        System.out.println(" ! taki dla tego punktu " + trasa);
+        //System.out.println(" ! taki dla tego punktu " + trasa);
         return trasa;
     }
 
     private boolean killPiece() {
         if (coordinates.getTargetX() == this.myX + 2 || coordinates.getTargetX() == this.myX - 2) {
             if (color.equals("#FFFFFF")) { //#FFFFFF-bialy
-                if ((coordinates.getTargetY() == this.myY + 2) || (backBites && coordinates.getTargetY() == this.myY - 2)) {
+                if (coordinates.getTargetY() == this.myY + 2 || backBites && coordinates.getTargetY() == this.myY - 2) {
                     RectangleWithPiece rectangleWithPieceToKill = GameWindow.checkSquare((coordinates.getSelectedX() + coordinates.getTargetX()) / 2, (coordinates.getSelectedY() + coordinates.getTargetY()) / 2);
                     if (rectangleWithPieceToKill.getPiece() == null) { return false; } //nie ma bicia
                     if (rectangleWithPieceToKill.getPiece().getColor().equals("#FFFFFF")) { return false; }
                     rectangleWithPieceToKill.setPiece(null);
                     this.myY = coordinates.getTargetY();
                     this.myX = coordinates.getTargetX();
-                    //amountOfWhitePawns=amountOfWhitePawns-1;
-                    //System.out.println(amountOfWhitePawns);
-                    coordinates.setLocked(true);
+                    //coordinates.setLocked(true);
                     coordinates.nextMove();
                     return true;
                 }
             } else {
-                if (coordinates.getTargetY() == this.myY - 2 || (backBites && coordinates.getTargetY() == this.myY + 2)) {
+                if (coordinates.getTargetY() == this.myY - 2 || backBites && coordinates.getTargetY() == this.myY + 2) {
                     RectangleWithPiece rectangleWithPieceToKill = GameWindow.checkSquare((coordinates.getSelectedX() + coordinates.getTargetX()) / 2, (coordinates.getSelectedY() + coordinates.getTargetY()) / 2);
                     if (rectangleWithPieceToKill.getPiece() == null) { return false; } //nie ma bicia
                     if (rectangleWithPieceToKill.getPiece().getColor().equals("#000000")) { return false; }
                     rectangleWithPieceToKill.setPiece(null);
                     this.myY = coordinates.getTargetY();
                     this.myX = coordinates.getTargetX();
-                    //amountOfBlackPawns=amountOfBlackPawns-1;
-                    //System.out.println(amountOfBlackPawns);
-                    coordinates.setLocked(true);
+                    //.setLocked(true);
                     coordinates.nextMove();
+
                     return true;
                 }
             }
@@ -140,7 +134,7 @@ public class Pawn extends Piece {
         return false;
     }
 
-    public int longestway(int xX, int yY, HashSet<RectangleWithPiece> biten) {
+    public int longestway(int xX, int yY, Set<RectangleWithPiece> biten) {
         int way = 0; //liczy ogolna
         int newway; //to jest na kawalek do porownania
 

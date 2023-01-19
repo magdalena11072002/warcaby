@@ -6,9 +6,9 @@ import org.example.gui.components.RectangleWithPiece;
 public class HiszpanskieData implements TypeData {
 
     private final int[] pieceslines = {-1, -1, -1, 0, 0, 1, 1, 1};
-    private final RectangleWithPiece.colortype piecesstand = RectangleWithPiece.colortype.LIGHT;
+    private final RectangleWithPiece.Colortype piecesstand = RectangleWithPiece.Colortype.LIGHT;
 
-    private final RectangleWithPiece.colortype boardstarts = RectangleWithPiece.colortype.DARK;
+    private final RectangleWithPiece.Colortype boardstarts = RectangleWithPiece.Colortype.DARK;
 
     //boolean obligatorycapture = true; //wszedzie true
 
@@ -26,29 +26,29 @@ public class HiszpanskieData implements TypeData {
     }
 
     @Override
-    public RectangleWithPiece.colortype getPiecesstand() {
+    public RectangleWithPiece.Colortype getPiecesstand() {
         return piecesstand;
     }
 
     @Override
-    public RectangleWithPiece.colortype getBoardStart() {
+    public RectangleWithPiece.Colortype getBoardStart() {
         return boardstarts;
     }
 
     @Override
-    public boolean getCaptureBackwards() {
+    public boolean isAbleCaptureBackwards() {
         boolean capturebackward = false;
         return capturebackward;
     }
 
     @Override
-    public boolean getQueenAfterCapture() {
+    public boolean isStandingAnywhereQueenAfterCapture() {
         boolean anywherequeenaftercapture = true;
         return anywherequeenaftercapture;
     }
 
-    @Override
-    public int amountOfPawns() {
+
+    /*public int amountOfPawns() {
         return 12;
-    }
+    }*/
 }

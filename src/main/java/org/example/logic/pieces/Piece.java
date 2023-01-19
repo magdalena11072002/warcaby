@@ -37,7 +37,7 @@ public abstract class Piece extends Button implements Movement {
         this.myY = myY;
     }
 
-    GameWindow gameWindow=new GameWindow();
+    GameWindow gameWindow=new GameWindow(); //
 
     public String getColor() {
         return color;
