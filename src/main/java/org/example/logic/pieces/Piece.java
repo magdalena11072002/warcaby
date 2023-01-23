@@ -5,8 +5,20 @@ import org.example.data.Date;
 import org.example.gui.GameWindow;
 import org.example.logic.Pawn;
 
+/**
+ * Klasa pionek która jest ogólna dla pionka i królowej
+ */
 public abstract class Piece extends Button implements Movement {
 
+    /**
+     * @param color - kolor
+     * @param myX - współrzędna X figury
+     * @param myY - współrzędna Y figury
+     * @param backBites - parametr który informuje czy są bicia do tyłu
+     * @param queenAnywhereAfterCapture - parametr informuje czy damki mogą stanąć dalej niż zaraz za zbitym pionkiem
+     * @param coordinates - instancja klasy Date umożliwiająca korzystanie ze znajdującyhc się w niej funkcji
+     * @param gameWindow - instancja klasy GameWindow umożliwiająca korzystanie z funkcji tej klasy które nie są statyczne
+     */
     protected String color; //dwie wartosci, podana przez hex : #FFFFFF-bialy , #000000-czarny.
     protected int myX;
     protected int myY;
@@ -16,6 +28,12 @@ public abstract class Piece extends Button implements Movement {
 
     protected Date coordinates;
 
+    /**
+     * Funkcja do ustawienia koloru oraz współrzędnych danej figury
+     * @param color
+     * @param myY
+     * @param myX
+     */
     public Piece(String color, int myY, int myX) {
         //konfiguracja przycisku
         super();
@@ -39,14 +57,25 @@ public abstract class Piece extends Button implements Movement {
 
     GameWindow gameWindow=new GameWindow(); //
 
+    /**
+     * Funkcja zwracająca kolor
+     * @return
+     */
     public String getColor() {
         return color;
     }
 
+    /**
+     * Funkcja pozwalajaca nadac pionkowi kolor
+     * @param color
+     */
     public void setColor(String color) {
         this.color = color;
     }
 
+    /**
+     * Funkcja do obsługi myszki
+     */
     private void setupMouseEvents() {
         setOnMouseClicked(e -> {
             if (gameWindow.getPlayer().equals(this.color)) {

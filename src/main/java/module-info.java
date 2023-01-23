@@ -9,4 +9,5 @@ module org.example {
     exports org.example.gui.components;
     exports org.example.data;
     exports org.example.logic;
+    exports org.example.logic.pieces;
 }

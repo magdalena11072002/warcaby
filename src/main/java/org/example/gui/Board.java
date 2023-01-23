@@ -4,7 +4,19 @@ import org.example.data.TypeData;
 import org.example.gui.components.RectangleWithPiece;
 import org.example.logic.pieces.Piece;
 
+/**
+ * Klasa do tworzenia planszy
+ */
 public class Board {
+
+    /**
+     * @param size - rozmiar planszy
+     * @param piecesline - tablica lini w których mają się pojawić pionki
+     * @param piecestand - oznacza typ pól na którym stoją pionki
+     * @param firstboard - oznaczenie typu pola w lewym górnym rogu planszy
+     * @param secondboard - oznaczenie typu pola w prawym dolnym rogu planszy
+     * @param chessborad - plansza
+     */
     private final int size;
     private final int[] pieceslines;
     private final RectangleWithPiece.Colortype piecestand;
@@ -12,6 +24,11 @@ public class Board {
     private final RectangleWithPiece.Colortype secondboard;
 
     private RectangleWithPiece[][] chessBoard;
+
+    /**
+     * Konstruktor do stworzenia nowej planszy
+     * @param type - typ gry
+     */
     Board(TypeData type) {
         size = type.getSize();
         pieceslines = type.getLinePieces();
@@ -23,13 +40,11 @@ public class Board {
         Piece.queenAnywhereAfterCapture = type.isStandingAnywhereQueenAfterCapture();
     }
 
+    /**
+     * Funkcja do tworzenia planszy
+     * @return - zwraca utworzoną plansze z pionkami
+     */
     public RectangleWithPiece[][] createBoard() {
-        createBoardd();
-        return chessBoard;
-
-    }
-
-    private void createBoardd() {
         chessBoard = new RectangleWithPiece[size][size];
         for (int i = 0; i < chessBoard.length; i++) {
             for (int j = 0; j < chessBoard[i].length; j++) {
@@ -50,6 +65,6 @@ public class Board {
                 chessBoard[i][j] = square;
             }
         }
-
+        return chessBoard;
     }
 }

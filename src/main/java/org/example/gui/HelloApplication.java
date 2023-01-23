@@ -19,16 +19,33 @@ import org.example.data.DwulinioweData;
 import org.example.data.HiszpanskieData;
 import org.example.data.PolskieData;
 
-public class HelloApplication extends Application {    private final Button option1 = new Button("Warcaby polskie");
+/**
+ * @author Magdalena Jurkowska and Weronika Chmiela
+ * @version 1.0
+ *
+ * Funkcja uruchamiająca aplikację oraz ustawiająca wartości w zależności od wybranego trybu gry
+ */
+public class HelloApplication extends Application {
 
+    /**
+     * @param option1, option2, option3 - trzy tryby gry do wyboru
+     */
+    private final Button option1 = new Button("Warcaby polskie");
     private final Button option2 = new Button("Warcaby dwuliniowe");
     private final Button option3 = new Button("Warcaby hiszpańskie");
 
+    /**
+     * Funkcja do uruchomienia programu
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
-
+    /**
+     * Funkcja start dla HelloAplication która ustawia wszystko w oknie początkowym przed wybraniem trybu oraz ustawia dany tryb po jego wybraniu
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
         VBox root = new VBox(); //pionowo
@@ -58,7 +75,7 @@ public class HelloApplication extends Application {    private final Button opti
             }
         };
         option1.setOnAction(first);
-        EventHandler<ActionEvent> second = new EventHandler<ActionEvent>() {
+        EventHandler<ActionEvent> second = new EventHandler<>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 GameWindow.display(new DwulinioweData());
@@ -66,7 +83,7 @@ public class HelloApplication extends Application {    private final Button opti
             }
         };
         option2.setOnAction(second);
-        EventHandler<ActionEvent> third = new EventHandler<ActionEvent>() {
+        EventHandler<ActionEvent> third = new EventHandler<>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 GameWindow.display(new HiszpanskieData());

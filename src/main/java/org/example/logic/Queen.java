@@ -10,8 +10,17 @@ import java.util.Set;
 import static java.lang.Math.abs;
 
 
+/**
+ * Klasa ado obsługi królowej
+ */
 public class Queen extends Piece {
 
+    /**
+     * Konstruktor do tworzenia królowej
+     * @param color
+     * @param myY
+     * @param myX
+     */
     public Queen(String color, int myY, int myX) {
 
         super(color, myY, myX);
@@ -21,6 +30,10 @@ public class Queen extends Piece {
         );
     }
 
+    /**
+     * Funkcja do wykonywania uchów królową
+     * @return
+     */
     @Override
     public boolean makeMove() {
         coordinates = GameWindow.getCoordinates();
@@ -40,6 +53,10 @@ public class Queen extends Piece {
         }
     }
 
+    /**
+     * Funkcja do sprawdzania ilości możliwych bić
+     * @return
+     */
     @Override
     public int possibleBitesHere() {
 
@@ -87,6 +104,10 @@ public class Queen extends Piece {
         return amount;
     }
 
+    /**
+     * Funkca zwracająca najdłuższą drogę dla damki
+     * @return
+     */
     @Override
     public int longestway() {
         int trasa = longestway(myX, myY, new HashSet<>());
@@ -94,9 +115,25 @@ public class Queen extends Piece {
         return trasa;
     }
 
+    /**
+     * Funkcja zwracająca który pionek można zbić
+     * @param targetX
+     * @param targetY
+     * @return
+     */
     private RectangleWithPiece whatpiecestokill(int targetX, int targetY) {
         return  whatpiecestokill(myX, myY, targetX, targetY, new HashSet<>());
     }
+
+    /**
+     * Funkca sprawdzająca czy można, a jesli tak to który pionek zbić
+     * @param startedX
+     * @param startedY
+     * @param targetX
+     * @param targetY
+     * @param biten
+     * @return
+     */
     private RectangleWithPiece whatpiecestokill(int startedX, int startedY, int targetX, int targetY, Set<RectangleWithPiece> biten) {
         RectangleWithPiece tokill = null;
         int amount = 0;
@@ -142,6 +179,11 @@ public class Queen extends Piece {
         return null;
     }
 
+    /**
+     * Funkcja do zbijania
+     * @param tokill
+     * @return
+     */
     private boolean killPiece(RectangleWithPiece tokill) {
         if (tokill == null || tokill.getPiece() == this) {
             return false;
@@ -155,6 +197,10 @@ public class Queen extends Piece {
         return true;
     }
 
+    /**
+     * Funkca do sprawdzania najdłuższego możliwego ruchu
+     * @return
+     */
     private boolean longMove() {
         if (coordinates.getAmountOfMoves() == 0) {
             if (abs(coordinates.getTargetX() - myX) == abs(coordinates.getTargetY() - myY)) {
@@ -168,6 +214,14 @@ public class Queen extends Piece {
         return  false;
     }
 
+    /**
+     * Funkcja zwracająca ilośc możliwych ruchów
+     * @param tX
+     * @param tY
+     * @param forX
+     * @param forY
+     * @return
+     */
     public int anybites(int tX, int tY, int forX, int forY) {
         int targetX = tX;
         int targetY = tY;
@@ -195,6 +249,13 @@ public class Queen extends Piece {
         //return 0;
     }
 
+    /**
+     * Funkca do sprawdzania i wykonywania najdłuższego możliwego ruchu
+     * @param xX
+     * @param yY
+     * @param biten
+     * @return
+     */
     public int longestway(int xX, int yY, Set<RectangleWithPiece> biten) {
 
         int targetX;

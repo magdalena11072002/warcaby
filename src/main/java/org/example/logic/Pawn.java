@@ -7,12 +7,25 @@ import org.example.gui.GameWindow;
 import org.example.gui.components.RectangleWithPiece;
 import org.example.logic.pieces.Piece;
 
+/**
+ * Klasa pionek
+ */
 public class Pawn extends Piece {
+
+    /**
+     * Konstruktor dziedziczony po klasie Piece
+     * @param color
+     * @param myY
+     * @param myX
+     */
     public Pawn(String color, int myY, int myX) {
         super(color, myY, myX);
     }
 
-
+    /**
+     * Funckja do wykonywania bić lub pojedynczych ruchów
+     * @return
+     */
     @Override
     public boolean makeMove() {
         coordinates = GameWindow.getCoordinates();
@@ -21,11 +34,21 @@ public class Pawn extends Piece {
         return moves;
     }
 
+    /**
+     * Funkcja zwracająca ilość możliwych bić
+     * @return
+     */
     @Override
     public int possibleBitesHere() {
         return possibleBitesHere(myX, myY);
     }
 
+    /**
+     * Funkcja sprawdzająca ilość możliwych bic dla danego pionka
+     * @param xX
+     * @param yY
+     * @return
+     */
     public int possibleBitesHere(int xX, int yY) {
 
         int amount = 0;
@@ -70,6 +93,10 @@ public class Pawn extends Piece {
         return amount;
     }
 
+    /**
+     * Funkcja do szukania najdłuższego możliwego ruchu dla danego pionka
+     * @return
+     */
     @Override
     public int longestway() {
         //return longestway(myX,myY, new HashSet<RectangleWithPiece>());
@@ -79,6 +106,10 @@ public class Pawn extends Piece {
         return trasa;
     }
 
+    /**
+     * Funkcja do zbijania
+     * @return
+     */
     private boolean killPiece() {
         if (coordinates.getTargetX() == this.myX + 2 || coordinates.getTargetX() == this.myX - 2) {
             if (color.equals("#FFFFFF")) { //#FFFFFF-bialy
@@ -112,6 +143,10 @@ public class Pawn extends Piece {
         return false;
     }
 
+    /**
+     * Funkcja do wykonywania pojedynczych ruchów
+     * @return
+     */
     private boolean simpleMove() {
         if (coordinates.getAmountOfMoves() == 0) {
 
@@ -134,6 +169,13 @@ public class Pawn extends Piece {
         return false;
     }
 
+    /**
+     * Funkcja sprawdzająca najdłuższą możliwą droge oraz ilość bic dla danego pionka
+     * @param xX parametr X sprawdzanego pionka
+     * @param yY parametr Y sprawdzanego pionka
+     * @param biten juz zbite pionki
+     * @return
+     */
     public int longestway(int xX, int yY, Set<RectangleWithPiece> biten) {
         int way = 0; //liczy ogolna
         int newway; //to jest na kawalek do porownania
