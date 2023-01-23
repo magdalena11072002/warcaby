@@ -29,7 +29,7 @@ public class Board {
      * Konstruktor do stworzenia nowej planszy
      * @param type - typ gry
      */
-    Board(TypeData type) {
+    public Board(TypeData type) {
         size = type.getSize();
         pieceslines = type.getLinePieces();
         piecestand = type.getPiecesstand();

@@ -25,7 +25,8 @@ public class GameWindow extends Application {
      * @param stage - scena(okno)
      * @param maxWay - nadłuższa ścieżka dla pionka lub królowej
      */
-    private static RectangleWithPiece[][] chessBoard;
+    //private static RectangleWithPiece[][] chessBoard;
+    public static RectangleWithPiece[][] chessBoard;
     private static Date coordinates = new Date();
     private static String player = "#FFFFFF";
     private static final Stage stage = new Stage();
@@ -43,7 +44,7 @@ public class GameWindow extends Application {
     }
 
     /**
-     * Funckja do tworzenia nowej planszy oraz uruchamiająca funckję dodającą odpowiednią ilość pionków
+     * Funkcja do tworzenia nowej planszy oraz uruchamiająca funckję dodającą odpowiednią ilość pionków
      *
      * @param type
      */
@@ -187,7 +188,7 @@ public class GameWindow extends Application {
      *
      * @return
      */
-    public String getPlayer() {
+    public static String getPlayer() {
         return player;
     }
 

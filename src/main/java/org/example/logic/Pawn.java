@@ -1,5 +1,6 @@
 package org.example.logic;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -29,8 +30,13 @@ public class Pawn extends Piece {
     @Override
     public boolean makeMove() {
         coordinates = GameWindow.getCoordinates();
-        boolean moves = killPiece() || simpleMove();
+        boolean moves = makeMove(coordinates);
         GameWindow.setCoordinates(coordinates);
+        return moves;
+    }
+    public boolean makeMove(org.example.data.Date cords) {
+        coordinates = cords;
+        boolean moves = killPiece() || simpleMove();
         return moves;
     }
 

@@ -1,5 +1,6 @@
 package org.example.logic;
 
+import javafx.scene.paint.Color;
 import org.example.gui.GameWindow;
 import org.example.gui.components.RectangleWithPiece;
 import org.example.logic.pieces.Piece;
@@ -24,10 +25,11 @@ public class Queen extends Piece {
     public Queen(String color, int myY, int myX) {
 
         super(color, myY, myX);
-        setStyle(
+        setFill(Color.RED);
+        /*setStyle(
                 getStyle()
                         + "-fx-background-color: red;"
-        );
+        );*/
     }
 
     /**

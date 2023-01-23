@@ -1,6 +1,9 @@
 package org.example.logic.pieces;
 
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import org.example.data.Date;
 import org.example.gui.GameWindow;
 import org.example.logic.Pawn;
@@ -8,7 +11,9 @@ import org.example.logic.Pawn;
 /**
  * Klasa pionek która jest ogólna dla pionka i królowej
  */
-public abstract class Piece extends Button implements Movement {
+//public abstract class Piece extends Button implements Movement {
+public abstract class Piece extends Circle implements Movement {
+
 
     /**
      * @param color - kolor
@@ -36,8 +41,13 @@ public abstract class Piece extends Button implements Movement {
      */
     public Piece(String color, int myY, int myX) {
         //konfiguracja przycisku
-        super();
-        setStyle(
+        super(15);
+        setFill(Paint.valueOf(color));
+        setTranslateX(5);
+        setStroke(Paint.valueOf(color));
+        setStrokeWidth(8);
+        //super();
+        /*setStyle(
                 "-fx-background-radius: 20; "
                         + "-fx-min-width: 40; "
                         + "-fx-min-height: 40; "
@@ -47,15 +57,16 @@ public abstract class Piece extends Button implements Movement {
                         + "-fx-border-color: " + color + ";"
                         + "-fx-border-radius: 20;"
                         + "-fx-border-width: 8 ;"
-        );
+        );*/
+
 
         setupMouseEvents();
-        this.color = color;
+        setColor(color);
         this.myX = myX;
         this.myY = myY;
     }
 
-    GameWindow gameWindow=new GameWindow(); //
+    //GameWindow gameWindow=new GameWindow(); //
 
     /**
      * Funkcja zwracająca kolor
@@ -78,7 +89,7 @@ public abstract class Piece extends Button implements Movement {
      */
     private void setupMouseEvents() {
         setOnMouseClicked(e -> {
-            if (gameWindow.getPlayer().equals(this.color)) {
+            if (GameWindow.getPlayer().equals(this.color)) {
                 coordinates = GameWindow.getCoordinates();
 
                 //jesli nic nie wybrane
