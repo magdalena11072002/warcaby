@@ -26,10 +26,6 @@ public class Queen extends Piece {
 
         super(color, myY, myX);
         setFill(Color.RED);
-        /*setStyle(
-                getStyle()
-                        + "-fx-background-color: red;"
-        );*/
     }
 
     /**

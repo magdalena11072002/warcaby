@@ -11,7 +11,6 @@ import org.example.logic.Pawn;
 /**
  * Klasa pionek która jest ogólna dla pionka i królowej
  */
-//public abstract class Piece extends Button implements Movement {
 public abstract class Piece extends Circle implements Movement {
 
 
@@ -46,27 +45,12 @@ public abstract class Piece extends Circle implements Movement {
         setTranslateX(5);
         setStroke(Paint.valueOf(color));
         setStrokeWidth(8);
-        //super();
-        /*setStyle(
-                "-fx-background-radius: 20; "
-                        + "-fx-min-width: 40; "
-                        + "-fx-min-height: 40; "
-                        + "-fx-background-color: " + color + ";"
-                        //+ "-fx-translate-y: 5; "
-                        + "-fx-translate-x: 5;"
-                        + "-fx-border-color: " + color + ";"
-                        + "-fx-border-radius: 20;"
-                        + "-fx-border-width: 8 ;"
-        );*/
-
 
         setupMouseEvents();
         setColor(color);
         this.myX = myX;
         this.myY = myY;
     }
-
-    //GameWindow gameWindow=new GameWindow(); //
 
     /**
      * Funkcja zwracająca kolor
