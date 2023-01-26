@@ -5,19 +5,17 @@ package org.example.data;
  */
 public class Date {
     /**
-     * * @param selectedX - współrzędna X pionka
-     *  * @param selectedY - współrzędna Y pionka
-     *  * @param targetX - współrzędna X pola
-     *  * @param targetY - współrzędna Y pola
-     *  * @param locked - informacja o zablokowaniu danego gracza, jeśli może wykonać więcej niż jedno bicie
+     * @param selectedX - współrzędna X pionka
+     * @param selectedY - współrzędna Y pionka
+     * @param targetX - współrzędna X pola
+     * @param targetY - współrzędna Y pola
+     * @param amountOfMadeMoves - informacja o ilosci juz wykonanych ruchow w trakcie rundy
      */
     private static int selectedX = -1;
     private static int selectedY = -1;
 
     private static int targetX = -1;
     private static int targetY = -1;
-
-    //private static boolean locked = false;
 
     private int amountOfMadeMoves;
 

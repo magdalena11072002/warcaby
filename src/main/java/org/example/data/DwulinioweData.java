@@ -28,8 +28,8 @@ public class DwulinioweData implements TypeData {
     }
 
     /**
-     * Funkcja która zwraca rzędy w których będą umieszczane pionki.
-     * @return
+     * Funkcja która zwraca listę z rzędami w których będą umieszczane pionki.
+     * @return lista zawiera wartości -1 dla białych pionków, 1 dla czarnych, 0 dla pola pustego
      */
     @Override
     public int[] getLinePieces() {
@@ -38,7 +38,7 @@ public class DwulinioweData implements TypeData {
 
     /**
      * Funkcja która zwraca typ pól na którym stoją pionki.
-     * @return
+     * @return Colortype.DARK jesli pionki stoją na ciemnym polu
      */
     @Override
     public RectangleWithPiece.Colortype getPiecesstand() {
@@ -47,7 +47,7 @@ public class DwulinioweData implements TypeData {
 
     /**
      * Funkcja która zwraca typ pola w lewym górnym rogu planszy.
-     * @return
+     * @return Colortype.LIGHT jesli jest to jasne pole
      */
     @Override
     public RectangleWithPiece.Colortype getBoardStart() {
@@ -57,7 +57,7 @@ public class DwulinioweData implements TypeData {
 
     /**
      * Funkcja która zwraca czy pionki moga bić "do tyłu".
-     * @return
+     * @return true jesli może wykonywać "bicia do tyłu"
      */
     @Override
     public boolean isAbleCaptureBackwards() {
@@ -68,7 +68,7 @@ public class DwulinioweData implements TypeData {
 
     /**
      * Funkcja która zwraca czy damki mogą stanąć dalej niż zaraz za zbitym pionkiem.
-     * @return
+     * @return true jesli może stanąć na dalszym polu
      */
     @Override
     public boolean isStandingAnywhereQueenAfterCapture() {
